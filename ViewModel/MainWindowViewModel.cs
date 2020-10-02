@@ -1,4 +1,6 @@
-﻿using OpenCVTester.Common;
+﻿using OpenCvSharp;
+using OpenCVTester.Common;
+using OpenCVTester.Model;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
@@ -7,8 +9,15 @@ namespace OpenCVTester.ViewModel
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
-        private string _imageSource;        
-        public string ImageSource
+        private ImageProcessing _imageProcessing;
+        private Mat _originImage;
+        private Mat _imageSource;
+        private int _brightness;
+
+        private ICommand _loadImageCommand;
+        private ICommand _resetBrightnessCommand;
+
+        public Mat ImageSource
         {
             get { return _imageSource; }
             set
@@ -17,20 +26,45 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("ImageSource");
             }
         }
+        public int Brightness
+        {
+            get { return _brightness; }
+            set
+            {
+                _brightness = value;
+                ControlBrightness(_brightness);
+                NotifyPropertyChanged("Brightness");
+            }
+        }
 
-        private ICommand _loadImageCommand;
         public ICommand LoadImageCommand
         {
             get { return (this._loadImageCommand) ?? (this._loadImageCommand = new DelegateCommand(() => LoadImage())); }
         }
+        public ICommand ResetBrightnessCommand
+        {
+            get { return (this._resetBrightnessCommand) ?? (this._resetBrightnessCommand = new DelegateCommand(() => ResetBrightness())); }
+        }
+
         public void LoadImage()
         {
-            ImageSource = "D:\\ComputerVision\\OpenCVTester\\OpenCVTester\\Image\\cat.bmp";
+            string imagePath = "D:\\ComputerVision\\OpenCVTester\\OpenCVTester\\Image\\cat.bmp";
+            _originImage = new Mat(imagePath, ImreadModes.Grayscale);
+            ImageSource = _originImage;
+        }                
+        public void ControlBrightness(int value)
+        {
+            ImageSource = _imageProcessing.ControlBrightness(_originImage, value);
+        }
+        public void ResetBrightness()
+        {
+            Brightness = 0;
         }
 
         public MainWindowViewModel()
         {
-            
+            _imageProcessing = new ImageProcessing();
+            Brightness = 0;
         }
 
         #region NotifyPropertyChanged

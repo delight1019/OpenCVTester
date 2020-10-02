@@ -3,10 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:converter="clr-namespace:OpenCVTester.Converter"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Window.Resources>
-        <ResourceDictionary Source="Style\DefaultStyle.xaml" />
+        <ResourceDictionary>
+            <converter:ImageConverter x:Key="ImageConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style\DefaultStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     
     <Grid>
@@ -15,7 +21,13 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <Image Source="{Binding ImageSource}" />
+            <Image>
+                <Image.Source>
+                    <MultiBinding Converter="{StaticResource ImageConverter}" Mode="OneWay">
+                        <Binding Path="ImageSource" />
+                    </MultiBinding>
+                </Image.Source>
+            </Image>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -32,8 +44,18 @@
                 <Button Content="Load" Style="{StaticResource ButtonStyle}" Command="{Binding LoadImageCommand}" />
             </Grid>
             <Grid Grid.Row="1">
-                <Button />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Button Content="밝기 조절 (Reset)" Style="{StaticResource ButtonStyle}" Command="{Binding ResetBrightnessCommand}" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Slider Style="{StaticResource SliderStyle}" Minimum="-100" Maximum="100" Value="{Binding Brightness, Mode=TwoWay}" />
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
 </Window>
+    

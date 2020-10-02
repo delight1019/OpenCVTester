@@ -3,5 +3,6 @@
                     xmlns:local="clr-namespace:OpenCVTester.View.Style">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ButtonStyle.xaml" />
+        <ResourceDictionary Source="SliderStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
