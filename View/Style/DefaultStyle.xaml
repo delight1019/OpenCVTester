@@ -4,5 +4,8 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ButtonStyle.xaml" />
         <ResourceDictionary Source="SliderStyle.xaml" />
+        <ResourceDictionary Source="ButtonGridStyle.xaml" />
+        <ResourceDictionary Source="MenuStyle.xaml" />
+        <ResourceDictionary Source="MenuItemStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

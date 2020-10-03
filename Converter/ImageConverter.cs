@@ -1,4 +1,5 @@
 ﻿using OpenCvSharp;
+using OpenCVTester.Model;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -14,7 +15,7 @@ namespace OpenCVTester.Converter
         {
             Mat imageSource = (Mat)values[0];
 
-            if (imageSource == null)
+            if ((imageSource == null) || (imageSource.Width == 0) || (imageSource.Height == 0))
             {
                 return null;
             }

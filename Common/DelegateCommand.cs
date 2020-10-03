@@ -6,7 +6,7 @@ namespace OpenCVTester.Common
     public class DelegateCommand : ICommand
     {
         private readonly Func<bool> _canExecute;
-        private readonly Action _execute;
+        private readonly Action<object> _execute;
 
         public event EventHandler CanExecuteChanged;
 
@@ -16,7 +16,7 @@ namespace OpenCVTester.Common
         }    
         public void Execute(object parameter)
         {
-            this._execute();
+            this._execute(parameter);
         }
         public void RaiseCanExecuteChanged()
         {
@@ -26,11 +26,11 @@ namespace OpenCVTester.Common
             }
         }
 
-        public DelegateCommand(Action execute) : this(execute, null)
+        public DelegateCommand(Action<object> execute) : this(execute, null)
         {
 
         }
-        public DelegateCommand(Action execute, Func<bool> canExecute)
+        public DelegateCommand(Action<object> execute, Func<bool> canExecute)
         {
             this._execute = execute;
             this._canExecute = canExecute;
