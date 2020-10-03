@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
-        xmlns:converter="clr-namespace:OpenCVTester.Converter"
+        xmlns:local="clr-namespace:OpenCVTester.ViewModel"
+        xmlns:converter="clr-namespace:OpenCVTester.Converter"      
+        xmlns:userControls="clr-namespace:OpenCVTester.View.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1000" Width="1500">
+        Title="MainWindow" WindowState="Maximized">
     <Window.Resources>
         <ResourceDictionary>
             <converter:ImageConverter x:Key="ImageConverter" />
@@ -24,8 +26,8 @@
             <DockPanel>
                 <Menu Style="{StaticResource MenuStyle}">
                     <MenuItem Header="File" Style="{StaticResource MenuItemStyle}">
-                        <MenuItem Header="Load Image1" Command="{Binding LoadImageCommand}" CommandParameter="{Binding LeftImage}" />
-                        <MenuItem Header="Load Image2" Command="{Binding LoadImageCommand}" CommandParameter="{Binding RightImage}"/>
+                        <MenuItem Header="Load Image1" Command="{Binding LoadImageCommand}" CommandParameter="{Binding LeftImageViewModel}" />
+                        <MenuItem Header="Load Image2" Command="{Binding LoadImageCommand}" CommandParameter="{Binding RightImageViewModel}"/>
                     </MenuItem>
                 </Menu>
             </DockPanel>
@@ -34,6 +36,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -41,13 +44,18 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Image>
+                    <userControls:ImagePanel>
+                        <userControls:ImagePanel.DataContext>
+                            <Binding Path="LeftImageViewModel" />
+                        </userControls:ImagePanel.DataContext>
+                    </userControls:ImagePanel>
+                    <!--<Image>
                         <Image.Source>
                             <MultiBinding Converter="{StaticResource ImageConverter}" Mode="OneWay">
                                 <Binding Path="LeftImageSource" />
                             </MultiBinding>
                         </Image.Source>
-                    </Image>
+                    </Image>-->
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">
@@ -56,14 +64,23 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Image>
+                    <userControls:ImagePanel>
+                        <userControls:ImagePanel.DataContext>
+                            <Binding Path="RightImageViewModel" />
+                        </userControls:ImagePanel.DataContext>
+                    </userControls:ImagePanel>
+                        
+                    <!--<Image>
                         <Image.Source>
                             <MultiBinding Converter="{StaticResource ImageConverter}" Mode="OneWay">
                                 <Binding Path="RightImageSource" />
                             </MultiBinding>
                         </Image.Source>
-                    </Image>
+                    </Image>-->
                 </Grid>
+            </Grid>
+            <Grid Grid.Column="2">
+                <userControls:ControllerPanel></userControls:ControllerPanel>
             </Grid>
         </Grid>
     </Grid>

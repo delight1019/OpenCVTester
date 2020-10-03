@@ -7,5 +7,6 @@
         <ResourceDictionary Source="ButtonGridStyle.xaml" />
         <ResourceDictionary Source="MenuStyle.xaml" />
         <ResourceDictionary Source="MenuItemStyle.xaml" />
+        <ResourceDictionary Source="ImagePanelStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

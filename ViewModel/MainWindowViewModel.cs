@@ -9,36 +9,15 @@ namespace OpenCVTester.ViewModel
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
+        private ImageViewModel _leftImageViewModel;
+        private ImageViewModel _rightImageViewModel;
+
         private ImageProcessing _imageProcessing;
         private int _brightness;
 
         private ICommand _loadImageCommand;
         private ICommand _resetBrightnessCommand;
 
-        public Mat LeftImageSource
-        {
-            get
-            {
-                return LeftImage.GetImage();
-            }
-            set
-            {
-                NotifyPropertyChanged("LeftImageSource");
-            }
-        }
-        public Mat RightImageSource
-        {
-            get
-            {
-                return RightImage.GetImage();
-            }
-            set
-            {
-                NotifyPropertyChanged("RightImageSource");
-            }
-        }
-        public ImageModel LeftImage { get; set; }
-        public ImageModel RightImage { get; set; }        
         public int Brightness
         {
             get { return _brightness; }
@@ -47,6 +26,25 @@ namespace OpenCVTester.ViewModel
                 _brightness = value;
                 ControlBrightness(_brightness);
                 NotifyPropertyChanged("Brightness");
+            }
+        }
+        
+        public ImageViewModel LeftImageViewModel
+        {
+            get { return _leftImageViewModel; }
+            set
+            {
+                _leftImageViewModel = value;
+                NotifyPropertyChanged("LeftImageViewModel");
+            }
+        }
+        public ImageViewModel RightImageViewModel
+        {
+            get { return _rightImageViewModel; }
+            set
+            {
+                _rightImageViewModel = value;
+                NotifyPropertyChanged("RightImageViewModel");
             }
         }
 
@@ -61,16 +59,8 @@ namespace OpenCVTester.ViewModel
 
         public void LoadImage(object parameter)
         {
-            ImageModel imageModel = (parameter as ImageModel);
-
-            if (imageModel.GetCode() == ImageCode.LEFT)
-            {
-                LeftImageSource = imageModel.RegisterImage("D:\\ComputerVision\\OpenCVTester\\OpenCVTester\\Image\\cat.bmp");
-            }
-            else if (imageModel.GetCode() == ImageCode.RIGHT)
-            {
-                RightImageSource = imageModel.RegisterImage("D:\\ComputerVision\\OpenCVTester\\OpenCVTester\\Image\\cropland.png");
-            }
+            ImageViewModel imageViewModel = (parameter as ImageViewModel);
+            imageViewModel.LoadImage();
         }                
         public void ControlBrightness(int value)
         {
@@ -83,9 +73,9 @@ namespace OpenCVTester.ViewModel
 
         public MainWindowViewModel()
         {
+            _leftImageViewModel = new ImageViewModel();
+            _rightImageViewModel = new ImageViewModel();
             _imageProcessing = new ImageProcessing();
-            LeftImage = new ImageModel(ImageCode.LEFT);
-            RightImage = new ImageModel(ImageCode.RIGHT);
             Brightness = 0;
         }
 

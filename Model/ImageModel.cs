@@ -3,14 +3,8 @@ using OpenCvSharp;
 
 namespace OpenCVTester.Model
 {
-    public enum ImageCode
-    {
-        LEFT, RIGHT
-    }
-
     public class ImageModel
     {
-        private ImageCode _code;
         private Mat _originImage;
         private Mat _currentImage;
 
@@ -31,14 +25,9 @@ namespace OpenCVTester.Model
         {
             return _currentImage;
         }
-        public ImageCode GetCode()
-        {
-            return _code;
-        }
 
-        public ImageModel(ImageCode code)
+        public ImageModel()
         {
-            _code = code;
             _originImage = new Mat();
             _currentImage = new Mat();
         }
