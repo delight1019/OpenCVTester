@@ -5,8 +5,11 @@
     <Color x:Key="DefaultColor">#D6E0F0</Color>
     <Color x:Key="DarkColor">#8D93AB</Color>
     <Color x:Key="LightColor">#F1F3F8</Color>
-    <Color x:Key="MostDarkColor">#393B44</Color>
+    <Color x:Key="DarkerColor">#393B44</Color>
 
-    <SolidColorBrush x:Key="GridBackgroundColor" Color="{StaticResource DefaultColor}" />
+    <SolidColorBrush x:Key="DefaultColorBrush" Color="{StaticResource DefaultColor}" />
+    <SolidColorBrush x:Key="DarkColorBrush" Color="{StaticResource DarkColor}" />
+    <SolidColorBrush x:Key="LightColorBrush" Color="{StaticResource LightColor}" />
+    <SolidColorBrush x:Key="DarkerColorbrush" Color="{StaticResource DarkerColor}" />
 
 </ResourceDictionary>

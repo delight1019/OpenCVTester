@@ -9,5 +9,7 @@
         <ResourceDictionary Source="MenuStyle.xaml" />
         <ResourceDictionary Source="MenuItemStyle.xaml" />
         <ResourceDictionary Source="ImagePanelStyle.xaml" />
+        <ResourceDictionary Source="InformationPanelStyle.xaml" />
+        <ResourceDictionary Source="ControllerPanelStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -2,16 +2,30 @@
 using OpenCvSharp;
 using OpenCVTester.Model;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace OpenCVTester.ViewModel
 {
     public class ImageViewModel : INotifyPropertyChanged
     {
+        private bool _isLoaded;
         private ImageModel _imageModel;
+        private ImageProcessing _imageProcessing;
 
+        private Mat _originImage;
         private Mat _imageSource;        
         private string _header;
+        private int _brightness;
 
+        public bool IsLoaded
+        {
+            get { return _isLoaded; }
+            set
+            {
+                _isLoaded = value;
+                NotifyPropertyChanged("IsLoaded");
+            }
+        }
         public Mat ImageSource
         {
             get { return _imageSource; }
@@ -30,6 +44,16 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("Header");
             }
         }
+        public int Brightness
+        {
+            get { return _brightness; }
+            set
+            {
+                _brightness = value;
+                ControlBrightness(_brightness);
+                NotifyPropertyChanged("Brightness");
+            }
+        }
 
         public void LoadImage()
         {
@@ -37,14 +61,23 @@ namespace OpenCVTester.ViewModel
 
             if (openFileDialog.ShowDialog() == true)
             {
-                ImageSource = _imageModel.RegisterImage(openFileDialog.FileName);
+                _originImage = _imageModel.RegisterImage(openFileDialog.FileName);
+                ImageSource = _originImage;
+                IsLoaded = true;
             }
+        }
+        public void ControlBrightness(int value)
+        {
+            ImageSource = _imageProcessing.ControlBrightness(_originImage, value);
         }
 
         public ImageViewModel(string header)
         {
             _imageModel = new ImageModel();
+            _imageProcessing = new ImageProcessing();
             _header = header;
+
+            IsLoaded = false;
         }
 
         #region NotifyPropertyChanged

@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:OpenCVTester.View.Style">
 
     <Style x:Key="ImageGridStyle" TargetType="{x:Type Grid}">
-        <Setter Property="Background" Value="{DynamicResource ResourceKey=GridBackgroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource ResourceKey=DefaultColorBrush}" />
     </Style>
 
     <Style x:Key="ImageStyle" TargetType="{x:Type Image}">

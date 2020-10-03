@@ -4,18 +4,43 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OpenCVTester.View.UserControls"
+             xmlns:converter="clr-namespace:OpenCVTester.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converter:ImageSizeConverter x:Key="ImageSizeConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/DefaultStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            
+        <Grid Grid.Row="0" Style="{StaticResource ControllerPanelStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Style="{StaticResource InformationLabelStyle}">Brightness</Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Slider Minimum="-255" Maximum="255" Value="{Binding Brightness}" Style="{StaticResource SliderStyle}" />
+                </Grid>
+            </Grid>
         </Grid>
-        <Grid Grid.Row="1">
-            <Label>Log Test</Label>
+        <Grid Grid.Row="1" Style="{StaticResource InformationGridStyle}">
+            <Label Style="{StaticResource InformationLabelStyle}" Content="{Binding ImageSource, Converter={StaticResource ImageSizeConverter}}" />
         </Grid>
     </Grid>
 </UserControl>

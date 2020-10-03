@@ -85,6 +85,8 @@ namespace OpenCVTester.ViewModel
             ImageList = new ObservableCollection<ImageViewModel>();
             ImageList.Add(_leftImageViewModel);
             ImageList.Add(_rightImageViewModel);
+
+            SelectedImage = LeftImageViewModel;
         }
 
         #region NotifyPropertyChanged

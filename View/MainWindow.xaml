@@ -11,6 +11,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <converter:ImageConverter x:Key="ImageConverter" />
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Style\DefaultStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -55,8 +56,12 @@
                     </TabControl.ContentTemplate>
                 </TabControl>
             </Grid>
-            <Grid Grid.Column="1">
-                <userControls:ControllerPanel></userControls:ControllerPanel>
+            <Grid Grid.Column="1" Style="{StaticResource ControllerPanelStyle}">
+                <userControls:ControllerPanel Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibilityConverter}, TargetNullValue=Hidden, Mode=TwoWay}">
+                    <userControls:ControllerPanel.DataContext>
+                        <Binding Path="SelectedImage" />
+                    </userControls:ControllerPanel.DataContext>
+                </userControls:ControllerPanel>
             </Grid>
         </Grid>
     </Grid>
