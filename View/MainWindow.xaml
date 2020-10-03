@@ -35,51 +35,27 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <userControls:ImagePanel>
-                        <userControls:ImagePanel.DataContext>
-                            <Binding Path="LeftImageViewModel" />
-                        </userControls:ImagePanel.DataContext>
-                    </userControls:ImagePanel>
-                    <!--<Image>
-                        <Image.Source>
-                            <MultiBinding Converter="{StaticResource ImageConverter}" Mode="OneWay">
-                                <Binding Path="LeftImageSource" />
-                            </MultiBinding>
-                        </Image.Source>
-                    </Image>-->
-                </Grid>
+                <TabControl 
+                    ItemsSource="{Binding ImageList}"
+                    SelectedItem="{Binding SelectedImage, Mode=TwoWay}">
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Header}" />
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <userControls:ImagePanel>
+
+                            </userControls:ImagePanel>
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
+                </TabControl>
             </Grid>
             <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <userControls:ImagePanel>
-                        <userControls:ImagePanel.DataContext>
-                            <Binding Path="RightImageViewModel" />
-                        </userControls:ImagePanel.DataContext>
-                    </userControls:ImagePanel>
-                        
-                    <!--<Image>
-                        <Image.Source>
-                            <MultiBinding Converter="{StaticResource ImageConverter}" Mode="OneWay">
-                                <Binding Path="RightImageSource" />
-                            </MultiBinding>
-                        </Image.Source>
-                    </Image>-->
-                </Grid>
-            </Grid>
-            <Grid Grid.Column="2">
                 <userControls:ControllerPanel></userControls:ControllerPanel>
             </Grid>
         </Grid>

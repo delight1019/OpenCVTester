@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:OpenCVTester.View.Style">
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ColorResources.xaml" />
         <ResourceDictionary Source="ButtonStyle.xaml" />
         <ResourceDictionary Source="SliderStyle.xaml" />
         <ResourceDictionary Source="ButtonGridStyle.xaml" />

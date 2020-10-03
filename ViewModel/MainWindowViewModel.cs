@@ -1,6 +1,7 @@
 ﻿using OpenCvSharp;
 using OpenCVTester.Common;
 using OpenCVTester.Model;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
@@ -11,22 +12,16 @@ namespace OpenCVTester.ViewModel
     {
         private ImageViewModel _leftImageViewModel;
         private ImageViewModel _rightImageViewModel;
+        private ImageViewModel _selectedImage;
 
         private ImageProcessing _imageProcessing;
-        private int _brightness;
 
         private ICommand _loadImageCommand;
         private ICommand _resetBrightnessCommand;
 
-        public int Brightness
+        public ObservableCollection<ImageViewModel> ImageList
         {
-            get { return _brightness; }
-            set
-            {
-                _brightness = value;
-                ControlBrightness(_brightness);
-                NotifyPropertyChanged("Brightness");
-            }
+            get; set;
         }
         
         public ImageViewModel LeftImageViewModel
@@ -47,6 +42,15 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("RightImageViewModel");
             }
         }
+        public ImageViewModel SelectedImage
+        {
+            get { return _selectedImage; }
+            set
+            {
+                _selectedImage = value;
+                NotifyPropertyChanged("SelectedImage");
+            }
+        }
 
         public ICommand LoadImageCommand
         {
@@ -61,6 +65,7 @@ namespace OpenCVTester.ViewModel
         {
             ImageViewModel imageViewModel = (parameter as ImageViewModel);
             imageViewModel.LoadImage();
+            SelectedImage = imageViewModel;
         }                
         public void ControlBrightness(int value)
         {
@@ -68,15 +73,18 @@ namespace OpenCVTester.ViewModel
         }
         public void ResetBrightness()
         {
-            Brightness = 0;
+            //Brightness = 0;
         }
 
         public MainWindowViewModel()
         {
-            _leftImageViewModel = new ImageViewModel();
-            _rightImageViewModel = new ImageViewModel();
+            _leftImageViewModel = new ImageViewModel("Image 1");
+            _rightImageViewModel = new ImageViewModel("Image 2");
+
             _imageProcessing = new ImageProcessing();
-            Brightness = 0;
+            ImageList = new ObservableCollection<ImageViewModel>();
+            ImageList.Add(_leftImageViewModel);
+            ImageList.Add(_rightImageViewModel);
         }
 
         #region NotifyPropertyChanged

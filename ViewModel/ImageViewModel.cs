@@ -7,8 +7,10 @@ namespace OpenCVTester.ViewModel
 {
     public class ImageViewModel : INotifyPropertyChanged
     {
-        private Mat _imageSource;
         private ImageModel _imageModel;
+
+        private Mat _imageSource;        
+        private string _header;
 
         public Mat ImageSource
         {
@@ -19,6 +21,16 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("ImageSource");
             }
         }
+        public string Header
+        {
+            get { return _header; }
+            set
+            {
+                _header = value;
+                NotifyPropertyChanged("Header");
+            }
+        }
+
         public void LoadImage()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -29,9 +41,10 @@ namespace OpenCVTester.ViewModel
             }
         }
 
-        public ImageViewModel()
+        public ImageViewModel(string header)
         {
             _imageModel = new ImageModel();
+            _header = header;
         }
 
         #region NotifyPropertyChanged

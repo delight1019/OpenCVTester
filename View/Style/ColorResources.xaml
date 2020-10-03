@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:OpenCVTester.View.Style">
+
+    <Color x:Key="DefaultColor">#D6E0F0</Color>
+    <Color x:Key="DarkColor">#8D93AB</Color>
+    <Color x:Key="LightColor">#F1F3F8</Color>
+    <Color x:Key="MostDarkColor">#393B44</Color>
+
+    <SolidColorBrush x:Key="GridBackgroundColor" Color="{StaticResource DefaultColor}" />
+
+</ResourceDictionary>
