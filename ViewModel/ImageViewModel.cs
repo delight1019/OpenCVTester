@@ -1,22 +1,25 @@
 ﻿using Microsoft.Win32;
 using OpenCvSharp;
+using OpenCVTester.Common;
 using OpenCVTester.Model;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace OpenCVTester.ViewModel
 {
-    public class ImageViewModel : INotifyPropertyChanged
+    public sealed class ImageViewModel : ImageViewModelBase
     {
-        private bool _isLoaded;
-        private ImageModel _imageModel;
-        private ImageProcessing _imageProcessing;
+        private bool _isVisible;
+        private bool _isLoaded;                
 
-        private Mat _originImage;
-        private Mat _imageSource;        
-        private string _header;
-        private int _brightness;
-
+        public override bool IsVisible
+        {
+            get { return _isVisible; }
+            set
+            {
+                _isVisible = value;
+                NotifyPropertyChanged("IsVisible");
+            }
+        }
         public bool IsLoaded
         {
             get { return _isLoaded; }
@@ -25,35 +28,7 @@ namespace OpenCVTester.ViewModel
                 _isLoaded = value;
                 NotifyPropertyChanged("IsLoaded");
             }
-        }
-        public Mat ImageSource
-        {
-            get { return _imageSource; }
-            set
-            {
-                _imageSource = value;
-                NotifyPropertyChanged("ImageSource");
-            }
-        }
-        public string Header
-        {
-            get { return _header; }
-            set
-            {
-                _header = value;
-                NotifyPropertyChanged("Header");
-            }
-        }
-        public int Brightness
-        {
-            get { return _brightness; }
-            set
-            {
-                _brightness = value;
-                ControlBrightness(_brightness);
-                NotifyPropertyChanged("Brightness");
-            }
-        }
+        }        
 
         public void LoadImage()
         {
@@ -61,35 +36,16 @@ namespace OpenCVTester.ViewModel
 
             if (openFileDialog.ShowDialog() == true)
             {
-                _originImage = _imageModel.RegisterImage(openFileDialog.FileName);
-                ImageSource = _originImage;
+                ImageSource = _imageModel.RegisterImage(openFileDialog.FileName);
                 IsLoaded = true;
             }
-        }
-        public void ControlBrightness(int value)
-        {
-            ImageSource = _imageProcessing.ControlBrightness(_originImage, value);
-        }
+        }                
 
-        public ImageViewModel(string header)
+        public ImageViewModel(ImageType imageType)
         {
-            _imageModel = new ImageModel();
-            _imageProcessing = new ImageProcessing();
-            _header = header;
+            ImageType = imageType;
 
             IsLoaded = false;
-        }
-
-        #region NotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        #endregion
+        }        
     }
 }

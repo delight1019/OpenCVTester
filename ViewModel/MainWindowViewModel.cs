@@ -12,14 +12,12 @@ namespace OpenCVTester.ViewModel
     {
         private ImageViewModel _leftImageViewModel;
         private ImageViewModel _rightImageViewModel;
-        private ImageViewModel _selectedImage;
-
-        private ImageProcessing _imageProcessing;
+        private ImageViewModelBase _selectedImage;
 
         private ICommand _loadImageCommand;
-        private ICommand _resetBrightnessCommand;
+        private ICommand _weightedSumCommand;
 
-        public ObservableCollection<ImageViewModel> ImageList
+        public ObservableCollection<ImageViewModelBase> ImageList
         {
             get; set;
         }
@@ -42,7 +40,7 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("RightImageViewModel");
             }
         }
-        public ImageViewModel SelectedImage
+        public ImageViewModelBase SelectedImage
         {
             get { return _selectedImage; }
             set
@@ -56,9 +54,9 @@ namespace OpenCVTester.ViewModel
         {
             get { return (this._loadImageCommand) ?? (this._loadImageCommand = new DelegateCommand((param) => LoadImage(param))); }
         }
-        public ICommand ResetBrightnessCommand
+        public ICommand WeightedSumCommand
         {
-            get { return (this._resetBrightnessCommand) ?? (this._resetBrightnessCommand = new DelegateCommand((param) => ResetBrightness())); }
+            get { return (this._weightedSumCommand) ?? (this._weightedSumCommand = new DelegateCommand((param) => WeightedSum())); }
         }
 
         public void LoadImage(object parameter)
@@ -66,23 +64,21 @@ namespace OpenCVTester.ViewModel
             ImageViewModel imageViewModel = (parameter as ImageViewModel);
             imageViewModel.LoadImage();
             SelectedImage = imageViewModel;
-        }                
-        public void ControlBrightness(int value)
+        }                        
+        public void WeightedSum()
         {
-            //ImageSource = _imageProcessing.ControlBrightness(_originImage, value);
-        }
-        public void ResetBrightness()
-        {
-            //Brightness = 0;
+            WeightedSumImageViewModel weightedSumImageViewModel = new WeightedSumImageViewModel(ImageType.WEIGHTED_SUM);
+            weightedSumImageViewModel.AddWeightedImages(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource, 0.5, 0.5);
+            ImageList.Add(weightedSumImageViewModel);
+            SelectedImage = weightedSumImageViewModel;
         }
 
         public MainWindowViewModel()
         {
-            _leftImageViewModel = new ImageViewModel("Image 1");
-            _rightImageViewModel = new ImageViewModel("Image 2");
+            _leftImageViewModel = new ImageViewModel(ImageType.IMAGE_1);
+            _rightImageViewModel = new ImageViewModel(ImageType.IMAGE_2);
 
-            _imageProcessing = new ImageProcessing();
-            ImageList = new ObservableCollection<ImageViewModel>();
+            ImageList = new ObservableCollection<ImageViewModelBase>();
             ImageList.Add(_leftImageViewModel);
             ImageList.Add(_rightImageViewModel);
 

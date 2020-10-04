@@ -5,6 +5,7 @@ namespace OpenCVTester.Model
 {
     public class ImageModel
     {
+        private ImageProcessing _imageProcessing;
         private Mat _originImage;
         private Mat _currentImage;
 
@@ -25,9 +26,21 @@ namespace OpenCVTester.Model
         {
             return _currentImage;
         }
+        public Mat ControlBrightness(int value)
+        {
+            _currentImage = _imageProcessing.ControlBrightness(_originImage, value);
+            return _currentImage;
+        }
+        public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)
+        {
+            Cv2.AddWeighted(image1, alpha, image2, beta, 0, _originImage);
+            _currentImage = _originImage;
+            return _currentImage;
+        }
 
         public ImageModel()
         {
+            _imageProcessing = new ImageProcessing();
             _originImage = new Mat();
             _currentImage = new Mat();
         }

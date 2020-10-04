@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,14 +72,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\StringValue.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Converter\ImageInfoConverter.cs" />
+    <Compile Include="Converter\ImagePanelVisibilityConverter.cs" />
+    <Compile Include="ViewModel\ImageViewModelBase.cs" />
     <Compile Include="ViewModel\ImageViewModel.cs" />
+    <Compile Include="ViewModel\WeightedSumImageViewModel.cs" />
     <Compile Include="View\UserControls\ControllerPanel.xaml.cs">
       <DependentUpon>ControllerPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\ImagePanel.xaml.cs">
       <DependentUpon>ImagePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\ImagePanelWrapper.xaml.cs">
+      <DependentUpon>ImagePanelWrapper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\WeightedSumImagePanel.xaml.cs">
+      <DependentUpon>WeightedSumImagePanel.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +153,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\ImagePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\ImagePanelWrapper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\WeightedSumImagePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

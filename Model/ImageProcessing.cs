@@ -11,10 +11,12 @@ namespace OpenCVTester.Model
                 return null;
             }
 
-            //Mat matToAdd = new Mat(imageSource.Height, imageSource.Width, imageSource.Type(), value);
-            //imageSource.Accumulate(matToAdd);            
-
             return imageSource + value;
+        }
+
+        public Mat Crop(Mat imageSource, Rect rect)
+        {
+            return new Mat(imageSource, rect);
         }
     }
 }

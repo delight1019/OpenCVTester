@@ -26,13 +26,14 @@
                 <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Style="{StaticResource PropertyGridStyle}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Label Style="{StaticResource InformationLabelStyle}">Brightness</Label>
+                    <Label Style="{StaticResource PropertyTitleStyle}">Brightness</Label>
+                    <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetBrightnessCommand}">Reset</Button>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Slider Minimum="-255" Maximum="255" Value="{Binding Brightness}" Style="{StaticResource SliderStyle}" />

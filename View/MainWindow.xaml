@@ -10,6 +10,7 @@
         Title="MainWindow" WindowState="Maximized">
     <Window.Resources>
         <ResourceDictionary>
+            <converter:ImageHeaderConverter x:Key="ImageHeaderConverter" />
             <converter:ImageConverter x:Key="ImageConverter" />
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
@@ -30,6 +31,9 @@
                         <MenuItem Header="Load Image1" Command="{Binding LoadImageCommand}" CommandParameter="{Binding LeftImageViewModel}" />
                         <MenuItem Header="Load Image2" Command="{Binding LoadImageCommand}" CommandParameter="{Binding RightImageViewModel}"/>
                     </MenuItem>
+                    <MenuItem Header="Edit" Style="{StaticResource MenuItemStyle}">
+                        <MenuItem Header="합성" Command="{Binding WeightedSumCommand}" />
+                    </MenuItem>
                 </Menu>
             </DockPanel>
         </Grid>
@@ -44,14 +48,12 @@
                     SelectedItem="{Binding SelectedImage, Mode=TwoWay}">
                     <TabControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Header}" />
+                            <TextBlock Text="{Binding ImageType, Converter={StaticResource ImageHeaderConverter}}" />
                         </DataTemplate>
                     </TabControl.ItemTemplate>
                     <TabControl.ContentTemplate>
                         <DataTemplate>
-                            <userControls:ImagePanel>
-
-                            </userControls:ImagePanel>
+                            <userControls:ImagePanelWrapper></userControls:ImagePanelWrapper>
                         </DataTemplate>
                     </TabControl.ContentTemplate>
                 </TabControl>

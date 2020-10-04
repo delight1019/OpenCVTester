@@ -13,6 +13,11 @@ namespace OpenCVTester.Converter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            if (!values[0].GetType().Equals(typeof(Mat)))
+            {
+                return null;
+            }
+
             Mat imageSource = (Mat)values[0];
 
             if ((imageSource == null) || (imageSource.Width == 0) || (imageSource.Height == 0))
