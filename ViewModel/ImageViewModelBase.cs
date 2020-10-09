@@ -48,7 +48,16 @@ namespace OpenCVTester.ViewModel
             get { return _imageModel.GetImage(); }
             set
             {
+                Histogram = _imageModel.CalculateHistogram();
                 NotifyPropertyChanged("ImageSource");
+            }
+        }
+        public Mat Histogram
+        {
+            get { return _imageModel.GetHistogram(); }
+            set
+            {
+                NotifyPropertyChanged("Histogram");
             }
         }
         public int Brightness

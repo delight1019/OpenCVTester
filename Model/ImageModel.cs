@@ -8,6 +8,7 @@ namespace OpenCVTester.Model
         private ImageProcessing _imageProcessing;
         private Mat _originImage;
         private Mat _currentImage;
+        private Mat _histogram;
 
         public Mat RegisterImage(string imagePath)
         {
@@ -25,6 +26,15 @@ namespace OpenCVTester.Model
         public Mat GetImage()
         {
             return _currentImage;
+        }
+        public Mat GetHistogram()
+        {
+            return _histogram;
+        }
+        public Mat CalculateHistogram()
+        {
+            _histogram = _imageProcessing.CalculateHistogram(_currentImage);
+            return _histogram;
         }
         public Mat ControlBrightness(int value)
         {
@@ -55,6 +65,7 @@ namespace OpenCVTester.Model
             _imageProcessing = new ImageProcessing();
             _originImage = new Mat();
             _currentImage = new Mat();
+            _histogram = new Mat();
         }
     }
 }
