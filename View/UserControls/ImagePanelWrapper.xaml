@@ -10,11 +10,11 @@
 
     <UserControl.Resources>
         <converter:ImagePanelVisibilityConverter x:Key="ImagePanelVisibilityConverter" />
-        <converter:WeightedSumImagePanelVisibilityConverter x:Key="WeightedSumImagePanelVisibilityConverter" />
+        <converter:BinaryOperationImagePanelVisibilityConverter x:Key="WeightedSumImagePanelVisibilityConverter" />
     </UserControl.Resources>
     
     <Grid>
         <local:ImagePanel Visibility="{Binding ImageType, Converter={StaticResource ImagePanelVisibilityConverter}}"></local:ImagePanel>
-        <local:WeightedSumImagePanel Visibility="{Binding ImageType, Converter={StaticResource WeightedSumImagePanelVisibilityConverter}}"></local:WeightedSumImagePanel>
+        <local:BinaryOperationImagePanel Visibility="{Binding ImageType, Converter={StaticResource WeightedSumImagePanelVisibilityConverter}}"></local:BinaryOperationImagePanel>
     </Grid>
 </UserControl>

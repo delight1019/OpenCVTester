@@ -2,7 +2,7 @@
 
 namespace OpenCVTester.ViewModel
 {
-    public class WeightedSumImageViewModel : ImageViewModelBase
+    public class BinaryOperationImageViewModel : ImageViewModelBase
     {
         private bool _isVisible;
         private Mat _imageSource1;
@@ -75,8 +75,16 @@ namespace OpenCVTester.ViewModel
             AdjustSize(ref image1, ref image2);
             ImageSource = _imageModel.AddWeightedImages(image1, image2, alpha, beta);
         }
+        public void SubtractImage(Mat image1, Mat image2)
+        {
+            ImageSource1 = image1;
+            ImageSource2 = image2;
 
-        public WeightedSumImageViewModel(ImageType imageType)
+            AdjustSize(ref image1, ref image2);
+            ImageSource = _imageModel.SubtractImages(image1, image2);
+        }
+
+        public BinaryOperationImageViewModel(ImageType imageType)
         {
             ImageType = imageType;
             _imageSource1 = new Mat();

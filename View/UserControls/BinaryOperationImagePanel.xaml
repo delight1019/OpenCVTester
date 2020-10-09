@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="OpenCVTester.View.UserControls.WeightedSumImagePanel"
+﻿<UserControl x:Class="OpenCVTester.View.UserControls.BinaryOperationImagePanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,6 +10,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <converter:ImageConverter x:Key="ImageConverter" />
+            <converter:SumWeightVisibilityConverter x:Key="SumWeightVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Style/DefaultStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -49,7 +50,7 @@
                         </Image.Source>
                     </Image>
                 </Grid>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Visibility="{Binding ImageType, Converter={StaticResource SumWeightVisibilityConverter}}">
                     <Slider Minimum="0" Maximum="1" Value="{Binding Alpha}" Style="{StaticResource SliderStyle}" />
                 </Grid>
             </Grid>
@@ -67,7 +68,7 @@
                         </Image.Source>
                     </Image>
                 </Grid>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Visibility="{Binding ImageType, Converter={StaticResource SumWeightVisibilityConverter}}">
                     <Slider Minimum="0" Maximum="1" Value="{Binding Beta}" Style="{StaticResource SliderStyle}" />
                 </Grid>
             </Grid>

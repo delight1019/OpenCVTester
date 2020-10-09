@@ -39,12 +39,7 @@ namespace OpenCVTester.ViewModel
                 ImageSource = _imageModel.RegisterImage(openFileDialog.FileName);
                 IsLoaded = true;
             }
-        }                
-        public void SubtractImage(Mat image1, Mat image2)
-        {
-            AdjustSize(ref image1, ref image2);
-            ImageSource = _imageModel.SubtractImages(image1, image2);
-        }
+        }                        
 
         public ImageViewModel(ImageType imageType)
         {

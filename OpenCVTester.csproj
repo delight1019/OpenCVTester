@@ -73,12 +73,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\StringValue.cs" />
+    <Compile Include="Converter\BinaryOperationImagePanelVisibilityConverter.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Converter\ImageInfoConverter.cs" />
     <Compile Include="Converter\ImagePanelVisibilityConverter.cs" />
     <Compile Include="ViewModel\ImageViewModelBase.cs" />
     <Compile Include="ViewModel\ImageViewModel.cs" />
-    <Compile Include="ViewModel\WeightedSumImageViewModel.cs" />
+    <Compile Include="ViewModel\BinaryOperationImageViewModel.cs" />
     <Compile Include="View\UserControls\ControllerPanel.xaml.cs">
       <DependentUpon>ControllerPanel.xaml</DependentUpon>
     </Compile>
@@ -88,8 +89,8 @@
     <Compile Include="View\UserControls\ImagePanelWrapper.xaml.cs">
       <DependentUpon>ImagePanelWrapper.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\WeightedSumImagePanel.xaml.cs">
-      <DependentUpon>WeightedSumImagePanel.xaml</DependentUpon>
+    <Compile Include="View\UserControls\BinaryOperationImagePanel.xaml.cs">
+      <DependentUpon>BinaryOperationImagePanel.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -160,7 +161,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControls\WeightedSumImagePanel.xaml">
+    <Page Include="View\UserControls\BinaryOperationImagePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

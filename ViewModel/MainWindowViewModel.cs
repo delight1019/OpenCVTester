@@ -72,14 +72,14 @@ namespace OpenCVTester.ViewModel
         }                        
         public void WeightedSum()
         {
-            WeightedSumImageViewModel weightedSumImageViewModel = new WeightedSumImageViewModel(ImageType.WEIGHTED_SUM);
+            BinaryOperationImageViewModel weightedSumImageViewModel = new BinaryOperationImageViewModel(ImageType.WEIGHTED_SUM);
             weightedSumImageViewModel.AddWeightedImages(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource, 0.5, 0.5);
             ImageList.Add(weightedSumImageViewModel);
             SelectedImage = weightedSumImageViewModel;
         }
         public void Subtract()
         {
-            ImageViewModel imageViewModel = new ImageViewModel(ImageType.SUBTRACT);
+            BinaryOperationImageViewModel imageViewModel = new BinaryOperationImageViewModel(ImageType.SUBTRACT);
             imageViewModel.SubtractImage(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource);
             ImageList.Add(imageViewModel);
             SelectedImage = imageViewModel;
