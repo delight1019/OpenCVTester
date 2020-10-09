@@ -129,6 +129,10 @@ namespace OpenCVTester.ViewModel
         {
             ImageSource = _imageModel.NormalizeHistogram();
         }
+        public void EqualizeHistogram()
+        {
+            ImageSource = _imageModel.EqualizeHistogram();
+        }
 
         public ImageViewModelBase()
         {

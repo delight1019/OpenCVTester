@@ -38,6 +38,7 @@
                     </MenuItem>
                     <MenuItem Header="Histogram" Style="{StaticResource MenuItemStyle}">
                         <MenuItem Header="Normalize" Command="{Binding NormalizeHistogramCommand}" />
+                        <MenuItem Header="Equalize" Command="{Binding EqualizeHistogramCommand}" />
                     </MenuItem>
                 </Menu>
             </DockPanel>

@@ -19,6 +19,7 @@ namespace OpenCVTester.ViewModel
         private ICommand _subtractCommand;
         private ICommand _absDiffCommand;
         private ICommand _normalizeHistogramCommand;
+        private ICommand _equalizeHistogramCommand;
 
         public ObservableCollection<ImageViewModelBase> ImageList
         {
@@ -73,6 +74,10 @@ namespace OpenCVTester.ViewModel
         {
             get { return (this._normalizeHistogramCommand) ?? (this._normalizeHistogramCommand = new DelegateCommand((param) => NormalizeHistogram())); }
         }
+        public ICommand EqualizeHistogramCommand
+        {
+            get { return (this._equalizeHistogramCommand) ?? (this._equalizeHistogramCommand = new DelegateCommand((param) => EqualizeHistogram())); }
+        }
 
         public void LoadImage(object parameter)
         {
@@ -104,6 +109,10 @@ namespace OpenCVTester.ViewModel
         public void NormalizeHistogram()
         {
             SelectedImage.NormalizeHistogram();
+        }
+        public void EqualizeHistogram()
+        {
+            SelectedImage.EqualizeHistogram();
         }
 
         public MainWindowViewModel()
