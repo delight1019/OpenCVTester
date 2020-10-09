@@ -13,12 +13,19 @@ namespace OpenCVTester.Model
 
             return imageSource + value;
         }
+        public Mat ChangeContrast(Mat imageSource, double value)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
 
+            return (1 + value) * imageSource - 128 * value;
+        }
         public Mat Crop(Mat imageSource, Rect rect)
         {
             return new Mat(imageSource, rect);
         }
-
         public Mat CalculateHistogram(Mat imageSource)
         {            
             Mat histogram = new Mat();

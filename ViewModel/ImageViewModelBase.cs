@@ -26,8 +26,10 @@ namespace OpenCVTester.ViewModel
         protected ImageModel _imageModel;
         private ImageType _imageType;
         private int _brightness;
+        private double _contrast;
 
         private ICommand _resetBrightnessCommand;
+        private ICommand _resetContrastCommand;
 
         private void ControlBrightness(int value)
         {
@@ -70,11 +72,25 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("Brightness");
             }
         }
+        public double Contrast
+        {
+            get { return _contrast; }
+            set
+            {
+                _contrast = value;
+                ImageSource = _imageModel.ChangeContrast(_contrast);
+                NotifyPropertyChanged("Contrast");
+            }
+        }
 
         public ICommand ResetBrightnessCommand
         {
             get { return (this._resetBrightnessCommand) ?? (this._resetBrightnessCommand = new DelegateCommand((param) => ResetBrightness())); }
         }        
+        public ICommand ResetContrastCommand
+        {
+            get { return (this._resetContrastCommand) ?? (this._resetContrastCommand = new DelegateCommand((param) => ResetContrast())); }
+        }
 
         public abstract bool IsVisible
         {
@@ -84,6 +100,10 @@ namespace OpenCVTester.ViewModel
         public void ResetBrightness()
         {
             Brightness = 0;
+        }
+        public void ResetContrast()
+        {
+            Contrast = 0;
         }
         public void AdjustSize(ref Mat image1, ref Mat image2)
         {

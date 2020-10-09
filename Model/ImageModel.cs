@@ -41,6 +41,11 @@ namespace OpenCVTester.Model
             _currentImage = _imageProcessing.ControlBrightness(_originImage, value);
             return _currentImage;
         }
+        public Mat ChangeContrast(double value)
+        {
+            _currentImage = _imageProcessing.ChangeContrast(_originImage, value);
+            return _currentImage;
+        }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)
         {
             Cv2.AddWeighted(image1, alpha, image2, beta, 0, _originImage);
