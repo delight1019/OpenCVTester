@@ -72,24 +72,7 @@ namespace OpenCVTester.ViewModel
             Alpha = alpha;
             Beta = beta;
 
-            if (image1.Width > image2.Width)
-            {
-                image1 = _imageProcessing.Crop(image1, new Rect(0, 0, image2.Width, image1.Height));
-            }
-            else
-            {
-                image2 = _imageProcessing.Crop(image2, new Rect(0, 0, image1.Width, image2.Height));
-            }
-
-            if (image1.Height > image2.Height)
-            {
-                image1 = _imageProcessing.Crop(image1, new Rect(0, 0, image1.Width, image2.Height));
-            }
-            else
-            {
-                image2 = _imageProcessing.Crop(image2, new Rect(0, 0, image2.Width, image1.Height));
-            }
-
+            AdjustSize(ref image1, ref image2);
             ImageSource = _imageModel.AddWeightedImages(image1, image2, alpha, beta);
         }
 

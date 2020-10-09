@@ -13,7 +13,9 @@ namespace OpenCVTester.ViewModel
         [StringValue("Image 2")]
         IMAGE_2,
         [StringValue("Weighted Sum")]
-        WEIGHTED_SUM
+        WEIGHTED_SUM,
+        [StringValue("Subtract")]
+        SUBTRACT
     }
 
     public abstract class ImageViewModelBase : INotifyPropertyChanged
@@ -71,6 +73,26 @@ namespace OpenCVTester.ViewModel
         public void ResetBrightness()
         {
             Brightness = 0;
+        }
+        public void AdjustSize(ref Mat image1, ref Mat image2)
+        {
+            if (image1.Width > image2.Width)
+            {
+                image1 = _imageProcessing.Crop(image1, new Rect(0, 0, image2.Width, image1.Height));
+            }
+            else
+            {
+                image2 = _imageProcessing.Crop(image2, new Rect(0, 0, image1.Width, image2.Height));
+            }
+
+            if (image1.Height > image2.Height)
+            {
+                image1 = _imageProcessing.Crop(image1, new Rect(0, 0, image1.Width, image2.Height));
+            }
+            else
+            {
+                image2 = _imageProcessing.Crop(image2, new Rect(0, 0, image2.Width, image1.Height));
+            }
         }
 
         public ImageViewModelBase()

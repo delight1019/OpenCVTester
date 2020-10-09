@@ -16,6 +16,7 @@ namespace OpenCVTester.ViewModel
 
         private ICommand _loadImageCommand;
         private ICommand _weightedSumCommand;
+        private ICommand _subtractCommand;
 
         public ObservableCollection<ImageViewModelBase> ImageList
         {
@@ -58,6 +59,10 @@ namespace OpenCVTester.ViewModel
         {
             get { return (this._weightedSumCommand) ?? (this._weightedSumCommand = new DelegateCommand((param) => WeightedSum())); }
         }
+        public ICommand SubtractCommand
+        {
+            get { return (this._subtractCommand) ?? (this._subtractCommand = new DelegateCommand((param) => Subtract())); }
+        }
 
         public void LoadImage(object parameter)
         {
@@ -71,6 +76,13 @@ namespace OpenCVTester.ViewModel
             weightedSumImageViewModel.AddWeightedImages(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource, 0.5, 0.5);
             ImageList.Add(weightedSumImageViewModel);
             SelectedImage = weightedSumImageViewModel;
+        }
+        public void Subtract()
+        {
+            ImageViewModel imageViewModel = new ImageViewModel(ImageType.SUBTRACT);
+            imageViewModel.SubtractImage(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource);
+            ImageList.Add(imageViewModel);
+            SelectedImage = imageViewModel;
         }
 
         public MainWindowViewModel()

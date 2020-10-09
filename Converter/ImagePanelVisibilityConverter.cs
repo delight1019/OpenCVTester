@@ -10,7 +10,7 @@ namespace OpenCVTester.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (((ImageType)value == ImageType.IMAGE_1) || ((ImageType)value == ImageType.IMAGE_2))
+            if (((ImageType)value == ImageType.IMAGE_1) || ((ImageType)value == ImageType.IMAGE_2) || ((ImageType)value == ImageType.SUBTRACT))
             {
                 return Visibility.Visible;
             }

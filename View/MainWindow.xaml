@@ -32,7 +32,8 @@
                         <MenuItem Header="Load Image2" Command="{Binding LoadImageCommand}" CommandParameter="{Binding RightImageViewModel}"/>
                     </MenuItem>
                     <MenuItem Header="Edit" Style="{StaticResource MenuItemStyle}">
-                        <MenuItem Header="합성" Command="{Binding WeightedSumCommand}" />
+                        <MenuItem Header="Weighted Sum" Command="{Binding WeightedSumCommand}" />
+                        <MenuItem Header="Subtract" Command="{Binding SubtractCommand}" />
                     </MenuItem>
                 </Menu>
             </DockPanel>

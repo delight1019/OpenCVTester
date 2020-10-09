@@ -37,6 +37,12 @@ namespace OpenCVTester.Model
             _currentImage = _originImage;
             return _currentImage;
         }
+        public Mat SubtractImages(Mat image1, Mat image2)
+        {
+            Cv2.Subtract(image1, image2, _originImage);
+            _currentImage = _originImage;
+            return _currentImage;
+        }
 
         public ImageModel()
         {
