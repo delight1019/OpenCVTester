@@ -125,6 +125,10 @@ namespace OpenCVTester.ViewModel
                 image2 = _imageProcessing.Crop(image2, new Rect(0, 0, image2.Width, image1.Height));
             }
         }
+        public void NormalizeHistogram()
+        {
+            ImageSource = _imageModel.NormalizeHistogram();
+        }
 
         public ImageViewModelBase()
         {

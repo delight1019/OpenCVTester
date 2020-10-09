@@ -64,6 +64,11 @@ namespace OpenCVTester.Model
             _currentImage = _originImage;
             return _currentImage;
         }
+        public Mat NormalizeHistogram()
+        {
+            _currentImage = _originImage.Normalize(0, 255, NormTypes.MinMax);
+            return _currentImage;
+        }
 
         public ImageModel()
         {

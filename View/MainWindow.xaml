@@ -36,6 +36,9 @@
                         <MenuItem Header="Subtract" Command="{Binding SubtractCommand}" />
                         <MenuItem Header="Abs Diff" Command="{Binding AbsDiffCommand}" />
                     </MenuItem>
+                    <MenuItem Header="Histogram" Style="{StaticResource MenuItemStyle}">
+                        <MenuItem Header="Normalize" Command="{Binding NormalizeHistogramCommand}" />
+                    </MenuItem>
                 </Menu>
             </DockPanel>
         </Grid>
