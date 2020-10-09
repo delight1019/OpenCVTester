@@ -10,13 +10,16 @@ namespace OpenCVTester.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (((ImageType)value == ImageType.WEIGHTED_SUM) || ((ImageType)value == ImageType.SUBTRACT))
+            switch ((ImageType)value)
             {
-                return Visibility.Visible;
-            }
-            else
-            {
-                return Visibility.Hidden;
+                case ImageType.WEIGHTED_SUM:
+                    return Visibility.Visible;
+                case ImageType.SUBTRACT:
+                    return Visibility.Visible;
+                case ImageType.ABS_DIFF:
+                    return Visibility.Visible;
+                default:
+                    return Visibility.Hidden;
             }
         }
 

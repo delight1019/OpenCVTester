@@ -83,6 +83,14 @@ namespace OpenCVTester.ViewModel
             AdjustSize(ref image1, ref image2);
             ImageSource = _imageModel.SubtractImages(image1, image2);
         }
+        public void AbsDiff(Mat image1, Mat image2)
+        {
+            ImageSource1 = image1;
+            ImageSource2 = image2;
+
+            AdjustSize(ref image1, ref image2);
+            ImageSource = _imageModel.AbsDiff(image1, image2);
+        }
 
         public BinaryOperationImageViewModel(ImageType imageType)
         {

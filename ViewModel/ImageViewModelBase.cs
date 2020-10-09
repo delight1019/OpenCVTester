@@ -15,7 +15,9 @@ namespace OpenCVTester.ViewModel
         [StringValue("Weighted Sum")]
         WEIGHTED_SUM,
         [StringValue("Subtract")]
-        SUBTRACT
+        SUBTRACT,
+        [StringValue("Abs Diff")]
+        ABS_DIFF
     }
 
     public abstract class ImageViewModelBase : INotifyPropertyChanged

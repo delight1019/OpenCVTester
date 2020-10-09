@@ -34,6 +34,7 @@
                     <MenuItem Header="Edit" Style="{StaticResource MenuItemStyle}">
                         <MenuItem Header="Weighted Sum" Command="{Binding WeightedSumCommand}" />
                         <MenuItem Header="Subtract" Command="{Binding SubtractCommand}" />
+                        <MenuItem Header="Abs Diff" Command="{Binding AbsDiffCommand}" />
                     </MenuItem>
                 </Menu>
             </DockPanel>
