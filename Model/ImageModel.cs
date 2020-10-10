@@ -8,6 +8,7 @@ namespace OpenCVTester.Model
         private ImageProcessing _imageProcessing;
         private Mat _originImage;
         private Mat _currentImage;
+        private Mat _beforeSketchFilterImage;
         private Mat _histogram;
         private int _brightness;
         private double _contrast;
@@ -16,6 +17,7 @@ namespace OpenCVTester.Model
         private double _sharpening;
         private int _medianFilterSize;
         private BilateralFilter _bilateralFilter;
+        private bool _isSketchFilterOn;
 
         private void Initialize()
         {
@@ -26,6 +28,7 @@ namespace OpenCVTester.Model
             _sharpening = 0;
             _medianFilterSize = 1;
             _bilateralFilter = new BilateralFilter(1, 1);
+            _isSketchFilterOn = false;
         }
         private Mat MakeCurrentImage()
         {
@@ -38,6 +41,11 @@ namespace OpenCVTester.Model
             tempImage = _imageProcessing.Sharpen(tempImage, _sharpening);
             tempImage = _imageProcessing.ApplyMedianFilter(tempImage, _medianFilterSize);
             tempImage = _imageProcessing.ApplyBilateralFilter(tempImage, _bilateralFilter);
+
+            if (_isSketchFilterOn)
+            {
+                tempImage = _imageProcessing.ApplySketchFilter(tempImage);
+            }
 
             _currentImage = tempImage;
             return _currentImage;
@@ -100,6 +108,10 @@ namespace OpenCVTester.Model
         {
             return _bilateralFilter.sigmaSpace;
         }
+        public bool IsSketchFilterOn()
+        {
+            return _isSketchFilterOn;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -150,6 +162,11 @@ namespace OpenCVTester.Model
             _bilateralFilter.sigmaSpace = value;
             return MakeCurrentImage();
         }
+        public Mat ApplySketchFilter(bool isOn)
+        {
+            _isSketchFilterOn = isOn;
+            return MakeCurrentImage();
+        }        
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)
         {
             Cv2.AddWeighted(image1, alpha, image2, beta, 0, _originImage);

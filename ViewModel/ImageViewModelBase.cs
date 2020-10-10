@@ -193,6 +193,14 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("BilateralFilterSigmaSpace");
             }
         }
+        public bool IsSketchFilterOn
+        {
+            get { return _imageModel.IsSketchFilterOn(); }
+            set
+            {
+                ImageSource = _imageModel.ApplySketchFilter(value);
+            }
+        }
 
         public ICommand ResetBrightnessCommand
         {

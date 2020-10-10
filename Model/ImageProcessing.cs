@@ -29,6 +29,7 @@ namespace OpenCVTester.Model
     public class ImageProcessing
     {
         private GaussianBlur unsharpMaskFactor = new GaussianBlur(0, 2.0);
+        private GaussianBlur sketchFilterFactor = new GaussianBlur(0, 5.0);
 
         public Mat ControlBrightness(Mat imageSource, int value)
         {
@@ -98,6 +99,17 @@ namespace OpenCVTester.Model
             }
 
             return imageSource.BilateralFilter(-1, bilateralFilter.sigmaColor, bilateralFilter.sigmaSpace);
+        }
+        public Mat ApplySketchFilter(Mat imageSource)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
+
+            Mat blurredImage = ChangeGaussianBlur(imageSource, sketchFilterFactor);
+
+            return 255 * (imageSource / blurredImage);
         }
         public Mat Crop(Mat imageSource, Rect rect)
         {

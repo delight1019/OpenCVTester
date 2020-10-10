@@ -21,11 +21,58 @@ namespace OpenCVTester.ViewModel
         private ICommand _normalizeHistogramCommand;
         private ICommand _equalizeHistogramCommand;
 
+        private void LoadImage(object parameter)
+        {
+            ImageViewModel imageViewModel = (parameter as ImageViewModel);
+            imageViewModel.LoadImage();
+            SelectedImage = imageViewModel;
+        }
+        private void WeightedSum()
+        {
+            BinaryOperationImageViewModel weightedSumImageViewModel = new BinaryOperationImageViewModel(ImageType.WEIGHTED_SUM);
+            weightedSumImageViewModel.AddWeightedImages(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource, 0.5, 0.5);
+            ImageList.Add(weightedSumImageViewModel);
+            SelectedImage = weightedSumImageViewModel;
+        }
+        private void Subtract()
+        {
+            BinaryOperationImageViewModel imageViewModel = new BinaryOperationImageViewModel(ImageType.SUBTRACT);
+            imageViewModel.SubtractImage(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource);
+            ImageList.Add(imageViewModel);
+            SelectedImage = imageViewModel;
+        }
+        private void AbsDiff()
+        {
+            BinaryOperationImageViewModel imageViewModel = new BinaryOperationImageViewModel(ImageType.ABS_DIFF);
+            imageViewModel.AbsDiff(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource);
+            ImageList.Add(imageViewModel);
+            SelectedImage = imageViewModel;
+        }
+        private void NormalizeHistogram()
+        {
+            SelectedImage.NormalizeHistogram();
+        }
+        private void EqualizeHistogram()
+        {
+            SelectedImage.EqualizeHistogram();
+        }
+
         public ObservableCollection<ImageViewModelBase> ImageList
         {
             get; set;
         }
-        
+
+        public bool IsSketchFilterOn
+        {
+            get { return SelectedImage.IsSketchFilterOn; }
+            set
+            {
+                SelectedImage.IsSketchFilterOn = value;
+                NotifyPropertyChanged("IsSketchFilterOn");
+            }
+        }
+
+
         public ImageViewModel LeftImageViewModel
         {
             get { return _leftImageViewModel; }
@@ -77,42 +124,6 @@ namespace OpenCVTester.ViewModel
         public ICommand EqualizeHistogramCommand
         {
             get { return (this._equalizeHistogramCommand) ?? (this._equalizeHistogramCommand = new DelegateCommand((param) => EqualizeHistogram())); }
-        }
-
-        public void LoadImage(object parameter)
-        {
-            ImageViewModel imageViewModel = (parameter as ImageViewModel);
-            imageViewModel.LoadImage();
-            SelectedImage = imageViewModel;
-        }                        
-        public void WeightedSum()
-        {
-            BinaryOperationImageViewModel weightedSumImageViewModel = new BinaryOperationImageViewModel(ImageType.WEIGHTED_SUM);
-            weightedSumImageViewModel.AddWeightedImages(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource, 0.5, 0.5);
-            ImageList.Add(weightedSumImageViewModel);
-            SelectedImage = weightedSumImageViewModel;
-        }
-        public void Subtract()
-        {
-            BinaryOperationImageViewModel imageViewModel = new BinaryOperationImageViewModel(ImageType.SUBTRACT);
-            imageViewModel.SubtractImage(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource);
-            ImageList.Add(imageViewModel);
-            SelectedImage = imageViewModel;
-        }
-        public void AbsDiff()
-        {
-            BinaryOperationImageViewModel imageViewModel = new BinaryOperationImageViewModel(ImageType.ABS_DIFF);
-            imageViewModel.AbsDiff(_leftImageViewModel.ImageSource, _rightImageViewModel.ImageSource);
-            ImageList.Add(imageViewModel);
-            SelectedImage = imageViewModel;
-        }
-        public void NormalizeHistogram()
-        {
-            SelectedImage.NormalizeHistogram();
-        }
-        public void EqualizeHistogram()
-        {
-            SelectedImage.EqualizeHistogram();
         }
 
         public MainWindowViewModel()

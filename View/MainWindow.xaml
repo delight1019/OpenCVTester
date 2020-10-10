@@ -40,6 +40,9 @@
                         <MenuItem Header="Normalize" Command="{Binding NormalizeHistogramCommand}" />
                         <MenuItem Header="Equalize" Command="{Binding EqualizeHistogramCommand}" />
                     </MenuItem>
+                    <MenuItem Header="Filter" Style="{StaticResource MenuItemStyle}">
+                        <MenuItem Header="Sketch Filter" IsCheckable="True" IsChecked="{Binding IsSketchFilterOn}" />
+                    </MenuItem>
                 </Menu>
             </DockPanel>
         </Grid>
