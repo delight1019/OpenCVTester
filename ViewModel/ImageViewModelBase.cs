@@ -32,6 +32,7 @@ namespace OpenCVTester.ViewModel
         private ICommand _resetGaussianBlurCommand;
         private ICommand _resetSharpeningCommand;
         private ICommand _resetMedianFilterCommand;
+        private ICommand _resetBilateralFilterCommand;
 
         private void ResetBrightness()
         {
@@ -57,6 +58,11 @@ namespace OpenCVTester.ViewModel
         private void ResetMedianFilter()
         {
             MedianFilter = 1;
+        }
+        private void ResetBilateralFilter()
+        {
+            BilateralFilterSigmaColor = 1;
+            BilateralFilterSigmaSpace = 1;
         }
 
         protected void AdjustSize(ref Mat image1, ref Mat image2)
@@ -169,6 +175,24 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("MedianFilter");
             }
         }
+        public int BilateralFilterSigmaColor
+        {
+            get { return _imageModel.GetBilateralFilterSigmaColor(); }
+            set
+            {
+                ImageSource = _imageModel.ChangeBilateralFilterSigmaColor(value);
+                NotifyPropertyChanged("BilateralFilterSigmaColor");
+            }
+        }
+        public int BilateralFilterSigmaSpace
+        {
+            get { return _imageModel.GetBilateralFilterSigmaSpace(); }
+            set
+            {
+                ImageSource = _imageModel.ChangeBilateralFilterSigmaSpace(value);
+                NotifyPropertyChanged("BilateralFilterSigmaSpace");
+            }
+        }
 
         public ICommand ResetBrightnessCommand
         {
@@ -193,6 +217,10 @@ namespace OpenCVTester.ViewModel
         public ICommand ResetMedianFilterCommand
         {
             get { return (this._resetMedianFilterCommand) ?? (this._resetMedianFilterCommand = new DelegateCommand((param) => ResetMedianFilter())); }
+        }
+        public ICommand ResetBilateralFilterCommand
+        {
+            get { return (this._resetBilateralFilterCommand) ?? (this._resetBilateralFilterCommand = new DelegateCommand((param) => ResetBilateralFilter())); }
         }
 
         public abstract bool IsVisible

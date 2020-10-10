@@ -15,6 +15,7 @@ namespace OpenCVTester.Model
         private GaussianBlur _gaussianBlur;
         private double _sharpening;
         private int _medianFilterSize;
+        private BilateralFilter _bilateralFilter;
 
         private void Initialize()
         {
@@ -24,6 +25,7 @@ namespace OpenCVTester.Model
             _gaussianBlur = new GaussianBlur(1, 1.0);
             _sharpening = 0;
             _medianFilterSize = 1;
+            _bilateralFilter = new BilateralFilter(1, 1);
         }
         private Mat MakeCurrentImage()
         {
@@ -35,6 +37,7 @@ namespace OpenCVTester.Model
             tempImage = _imageProcessing.ChangeGaussianBlur(tempImage, _gaussianBlur);
             tempImage = _imageProcessing.Sharpen(tempImage, _sharpening);
             tempImage = _imageProcessing.ApplyMedianFilter(tempImage, _medianFilterSize);
+            tempImage = _imageProcessing.ApplyBilateralFilter(tempImage, _bilateralFilter);
 
             _currentImage = tempImage;
             return _currentImage;
@@ -89,6 +92,14 @@ namespace OpenCVTester.Model
         {
             return _medianFilterSize;
         }
+        public int GetBilateralFilterSigmaColor()
+        {
+            return _bilateralFilter.sigmaColor;
+        }
+        public int GetBilateralFilterSigmaSpace()
+        {
+            return _bilateralFilter.sigmaSpace;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -127,6 +138,16 @@ namespace OpenCVTester.Model
         public Mat ApplyMedianFilter(int value)
         {
             _medianFilterSize = value;
+            return MakeCurrentImage();
+        }
+        public Mat ChangeBilateralFilterSigmaColor(int value)
+        {
+            _bilateralFilter.sigmaColor = value;
+            return MakeCurrentImage();
+        }
+        public Mat ChangeBilateralFilterSigmaSpace(int value)
+        {
+            _bilateralFilter.sigmaSpace = value;
             return MakeCurrentImage();
         }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)

@@ -14,6 +14,18 @@ namespace OpenCVTester.Model
         }
     }
 
+    public struct BilateralFilter
+    {
+        public int sigmaColor;
+        public int sigmaSpace;
+
+        public BilateralFilter(int color, int space)
+        {
+            this.sigmaColor = color;
+            this.sigmaSpace = space;
+        }
+    }
+
     public class ImageProcessing
     {
         private GaussianBlur unsharpMaskFactor = new GaussianBlur(0, 2.0);
@@ -77,6 +89,15 @@ namespace OpenCVTester.Model
             }
 
             return imageSource.MedianBlur(size);
+        }
+        public Mat ApplyBilateralFilter(Mat imageSource, BilateralFilter bilateralFilter)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
+
+            return imageSource.BilateralFilter(-1, bilateralFilter.sigmaColor, bilateralFilter.sigmaSpace);
         }
         public Mat Crop(Mat imageSource, Rect rect)
         {

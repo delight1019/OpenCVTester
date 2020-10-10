@@ -30,6 +30,7 @@
                 <RowDefinition Height="90" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="60" />
+                <RowDefinition Height="90" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Style="{StaticResource PropertyGridStyle}">
@@ -112,6 +113,23 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <Slider Minimum="1" Maximum="9" TickFrequency="2" IsSnapToTickEnabled="True" Value="{Binding MedianFilter}" Style="{StaticResource SliderStyle}" />
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="6" Style="{StaticResource PropertyGridStyle}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Style="{StaticResource PropertyTitleStyle}">Bilateral Filter</Label>
+                    <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetBilateralFilterCommand}">Reset</Button>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Slider Minimum="1" Maximum="20" Value="{Binding BilateralFilterSigmaColor}" Style="{StaticResource SliderStyle}" />
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Slider Minimum="1" Maximum="20" Value="{Binding BilateralFilterSigmaSpace}" Style="{StaticResource SliderStyle}" />
                 </Grid>
             </Grid>
         </Grid>
