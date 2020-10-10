@@ -13,22 +13,26 @@ namespace OpenCVTester.Model
         private double _contrast;
         private int _meanBlur;
         private GaussianBlur _gaussianBlur;
+        private double _sharpening;
 
         private void Initialize()
         {
             _brightness = 0;
             _contrast = 0;
             _meanBlur = 1;
-            _gaussianBlur.kernalSize = 1;
-            _gaussianBlur.sigma = 1;
+            _gaussianBlur = new GaussianBlur(1, 1.0);
+            _sharpening = 0;
         }
         private Mat MakeCurrentImage()
         {
             Mat tempImage = _originImage;
+
             tempImage = _imageProcessing.ControlBrightness(tempImage, _brightness);
             tempImage = _imageProcessing.ChangeContrast(tempImage, _contrast);
             tempImage = _imageProcessing.ChangeMeanBlur(tempImage, _meanBlur);
             tempImage = _imageProcessing.ChangeGaussianBlur(tempImage, _gaussianBlur);
+            tempImage = _imageProcessing.Sharpen(tempImage, _sharpening);
+
             _currentImage = tempImage;
             return _currentImage;
         }
@@ -74,6 +78,10 @@ namespace OpenCVTester.Model
         {
             return _gaussianBlur.sigma;
         }
+        public double GetSharpening()
+        {
+            return _sharpening;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -102,6 +110,11 @@ namespace OpenCVTester.Model
         public Mat ChangeGaussianBlurSigma(double value)
         {
             _gaussianBlur.sigma = value;
+            return MakeCurrentImage();
+        }
+        public Mat Sharpen(double value)
+        {
+            _sharpening = value;
             return MakeCurrentImage();
         }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)

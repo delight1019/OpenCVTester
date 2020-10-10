@@ -30,6 +30,7 @@ namespace OpenCVTester.ViewModel
         private ICommand _resetContrastCommand;
         private ICommand _resetMeanBlurCommand;
         private ICommand _resetGaussianBlurCommand;
+        private ICommand _resetSharpeningCommand;
 
         private void ResetBrightness()
         {
@@ -47,6 +48,10 @@ namespace OpenCVTester.ViewModel
         {
             GaussianBlurSize = 1;
             GaussianBlurSigma = 1;
+        }
+        private void ResetSharpening()
+        {
+            Sharpening = 0;
         }
 
         protected void AdjustSize(ref Mat image1, ref Mat image2)
@@ -141,6 +146,15 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("GaussianBlurSigma");
             }
         }
+        public double Sharpening
+        {
+            get { return _imageModel.GetSharpening(); }
+            set
+            {
+                ImageSource = _imageModel.Sharpen(value);
+                NotifyPropertyChanged("Sharpening");
+            }
+        }
 
         public ICommand ResetBrightnessCommand
         {
@@ -157,6 +171,10 @@ namespace OpenCVTester.ViewModel
         public ICommand ResetGaussianBlurCommand
         {
             get { return (this._resetGaussianBlurCommand) ?? (this._resetGaussianBlurCommand = new DelegateCommand((param) => ResetGaussianBlur())); }
+        }
+        public ICommand ResetSharpeningCommand
+        {
+            get { return (this._resetSharpeningCommand) ?? (this._resetSharpeningCommand = new DelegateCommand((param) => ResetSharpening())); }
         }
 
         public abstract bool IsVisible
