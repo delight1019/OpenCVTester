@@ -9,6 +9,17 @@ namespace OpenCVTester.Model
         private Mat _originImage;
         private Mat _currentImage;
         private Mat _histogram;
+        private int _brightness;
+        private double _contrast;
+
+        private Mat MakeCurrentImage()
+        {
+            Mat tempImage = _originImage;
+            tempImage = _imageProcessing.ControlBrightness(tempImage, _brightness);
+            tempImage = _imageProcessing.ChangeContrast(tempImage, _contrast);
+            _currentImage = tempImage;
+            return _currentImage;
+        }
 
         public Mat RegisterImage(string imagePath)
         {
@@ -31,6 +42,14 @@ namespace OpenCVTester.Model
         {
             return _histogram;
         }
+        public int GetBrightness()
+        {
+            return _brightness;
+        }
+        public double GetContrast()
+        {
+            return _contrast;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -38,13 +57,13 @@ namespace OpenCVTester.Model
         }
         public Mat ControlBrightness(int value)
         {
-            _currentImage = _imageProcessing.ControlBrightness(_originImage, value);
-            return _currentImage;
+            _brightness = value;
+            return MakeCurrentImage();
         }
         public Mat ChangeContrast(double value)
         {
-            _currentImage = _imageProcessing.ChangeContrast(_originImage, value);
-            return _currentImage;
+            _contrast = value;
+            return MakeCurrentImage();
         }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)
         {
@@ -66,12 +85,12 @@ namespace OpenCVTester.Model
         }
         public Mat NormalizeHistogram()
         {
-            _currentImage = _originImage.Normalize(0, 255, NormTypes.MinMax);
+            _currentImage = _currentImage.Normalize(0, 255, NormTypes.MinMax);
             return _currentImage;
         }
         public Mat EqualizeHistogram()
         {
-            _currentImage = _originImage.EqualizeHist();
+            _currentImage = _currentImage.EqualizeHist();
             return _currentImage;
         }
 

@@ -25,15 +25,38 @@ namespace OpenCVTester.ViewModel
         protected ImageProcessing _imageProcessing;
         protected ImageModel _imageModel;
         private ImageType _imageType;
-        private int _brightness;
-        private double _contrast;
 
         private ICommand _resetBrightnessCommand;
         private ICommand _resetContrastCommand;
 
-        private void ControlBrightness(int value)
+        private void ResetBrightness()
         {
-            ImageSource = _imageModel.ControlBrightness(value);
+            Brightness = 0;
+        }
+        private void ResetContrast()
+        {
+            Contrast = 0;
+        }
+
+        protected void AdjustSize(ref Mat image1, ref Mat image2)
+        {
+            if (image1.Width > image2.Width)
+            {
+                image1 = _imageProcessing.Crop(image1, new Rect(0, 0, image2.Width, image1.Height));
+            }
+            else
+            {
+                image2 = _imageProcessing.Crop(image2, new Rect(0, 0, image1.Width, image2.Height));
+            }
+
+            if (image1.Height > image2.Height)
+            {
+                image1 = _imageProcessing.Crop(image1, new Rect(0, 0, image1.Width, image2.Height));
+            }
+            else
+            {
+                image2 = _imageProcessing.Crop(image2, new Rect(0, 0, image2.Width, image1.Height));
+            }
         }
 
         public ImageType ImageType
@@ -64,21 +87,19 @@ namespace OpenCVTester.ViewModel
         }
         public int Brightness
         {
-            get { return _brightness; }
+            get { return _imageModel.GetBrightness(); }
             set
             {
-                _brightness = value;
-                ImageSource = _imageModel.ControlBrightness(_brightness);
+                ImageSource = _imageModel.ControlBrightness(value);
                 NotifyPropertyChanged("Brightness");
             }
         }
         public double Contrast
         {
-            get { return _contrast; }
+            get { return _imageModel.GetContrast(); }
             set
             {
-                _contrast = value;
-                ImageSource = _imageModel.ChangeContrast(_contrast);
+                ImageSource = _imageModel.ChangeContrast(value);
                 NotifyPropertyChanged("Contrast");
             }
         }
@@ -96,35 +117,7 @@ namespace OpenCVTester.ViewModel
         {
             get; set;
         }
-
-        public void ResetBrightness()
-        {
-            Brightness = 0;
-        }
-        public void ResetContrast()
-        {
-            Contrast = 0;
-        }
-        public void AdjustSize(ref Mat image1, ref Mat image2)
-        {
-            if (image1.Width > image2.Width)
-            {
-                image1 = _imageProcessing.Crop(image1, new Rect(0, 0, image2.Width, image1.Height));
-            }
-            else
-            {
-                image2 = _imageProcessing.Crop(image2, new Rect(0, 0, image1.Width, image2.Height));
-            }
-
-            if (image1.Height > image2.Height)
-            {
-                image1 = _imageProcessing.Crop(image1, new Rect(0, 0, image1.Width, image2.Height));
-            }
-            else
-            {
-                image2 = _imageProcessing.Crop(image2, new Rect(0, 0, image2.Width, image1.Height));
-            }
-        }
+        
         public void NormalizeHistogram()
         {
             ImageSource = _imageModel.NormalizeHistogram();
