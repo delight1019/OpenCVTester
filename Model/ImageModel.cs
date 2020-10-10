@@ -18,6 +18,7 @@ namespace OpenCVTester.Model
         private int _medianFilterSize;
         private BilateralFilter _bilateralFilter;
         private bool _isSketchFilterOn;
+        private bool _isCartoonFilterOn;
 
         private void Initialize()
         {
@@ -45,6 +46,11 @@ namespace OpenCVTester.Model
             if (_isSketchFilterOn)
             {
                 tempImage = _imageProcessing.ApplySketchFilter(tempImage);
+            }
+
+            if (_isCartoonFilterOn)
+            {
+                tempImage = _imageProcessing.ApplyCartoonFilter(tempImage);
             }
 
             _currentImage = tempImage;
@@ -112,6 +118,10 @@ namespace OpenCVTester.Model
         {
             return _isSketchFilterOn;
         }
+        public bool IsCartoonFilterOn()
+        {
+            return _isCartoonFilterOn;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -166,7 +176,12 @@ namespace OpenCVTester.Model
         {
             _isSketchFilterOn = isOn;
             return MakeCurrentImage();
-        }        
+        }
+        public Mat ApplyCartoonFilter(bool isOn)
+        {
+            _isCartoonFilterOn = isOn;
+            return MakeCurrentImage();
+        }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)
         {
             Cv2.AddWeighted(image1, alpha, image2, beta, 0, _originImage);

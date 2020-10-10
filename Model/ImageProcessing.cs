@@ -30,6 +30,7 @@ namespace OpenCVTester.Model
     {
         private GaussianBlur unsharpMaskFactor = new GaussianBlur(0, 2.0);
         private GaussianBlur sketchFilterFactor = new GaussianBlur(0, 5.0);
+        private BilateralFilter cartoonFilterFactor = new BilateralFilter(10, 5);
 
         public Mat ControlBrightness(Mat imageSource, int value)
         {
@@ -110,6 +111,19 @@ namespace OpenCVTester.Model
             Mat blurredImage = ChangeGaussianBlur(imageSource, sketchFilterFactor);
 
             return 255 * (imageSource / blurredImage);
+        }
+        public Mat ApplyCartoonFilter(Mat imageSource)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
+
+            Mat bilateralImage = ApplyBilateralFilter(imageSource, cartoonFilterFactor);
+            Mat cannyImage = 255 - imageSource.Canny(100, 200);
+            Cv2.BitwiseAnd(bilateralImage, cannyImage, imageSource);
+
+            return imageSource;
         }
         public Mat Crop(Mat imageSource, Rect rect)
         {

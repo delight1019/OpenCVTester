@@ -31,7 +31,7 @@
                         <MenuItem Header="Load Image1" Command="{Binding LoadImageCommand}" CommandParameter="{Binding LeftImageViewModel}" />
                         <MenuItem Header="Load Image2" Command="{Binding LoadImageCommand}" CommandParameter="{Binding RightImageViewModel}"/>
                     </MenuItem>
-                    <MenuItem Header="Edit" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="Compose" Style="{StaticResource MenuItemStyle}">
                         <MenuItem Header="Weighted Sum" Command="{Binding WeightedSumCommand}" />
                         <MenuItem Header="Subtract" Command="{Binding SubtractCommand}" />
                         <MenuItem Header="Abs Diff" Command="{Binding AbsDiffCommand}" />
@@ -41,7 +41,8 @@
                         <MenuItem Header="Equalize" Command="{Binding EqualizeHistogramCommand}" />
                     </MenuItem>
                     <MenuItem Header="Filter" Style="{StaticResource MenuItemStyle}">
-                        <MenuItem Header="Sketch Filter" IsCheckable="True" IsChecked="{Binding IsSketchFilterOn}" />
+                        <MenuItem Header="Sketch Filter" IsCheckable="True" IsChecked="{Binding SelectedImage.IsSketchFilterOn}" />
+                        <MenuItem Header="Cartoon Filter" IsCheckable="True" IsChecked="{Binding SelectedImage.IsCartoonFilterOn}" />
                     </MenuItem>
                 </Menu>
             </DockPanel>

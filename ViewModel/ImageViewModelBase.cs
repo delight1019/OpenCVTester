@@ -199,6 +199,16 @@ namespace OpenCVTester.ViewModel
             set
             {
                 ImageSource = _imageModel.ApplySketchFilter(value);
+                NotifyPropertyChanged("IsSketchFilterOn");
+            }
+        }
+        public bool IsCartoonFilterOn
+        {
+            get { return _imageModel.IsCartoonFilterOn(); }
+            set
+            {
+                ImageSource = _imageModel.ApplyCartoonFilter(value);
+                NotifyPropertyChanged("IsCartoonFilterOn");
             }
         }
 

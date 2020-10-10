@@ -62,17 +62,6 @@ namespace OpenCVTester.ViewModel
             get; set;
         }
 
-        public bool IsSketchFilterOn
-        {
-            get { return SelectedImage.IsSketchFilterOn; }
-            set
-            {
-                SelectedImage.IsSketchFilterOn = value;
-                NotifyPropertyChanged("IsSketchFilterOn");
-            }
-        }
-
-
         public ImageViewModel LeftImageViewModel
         {
             get { return _leftImageViewModel; }
