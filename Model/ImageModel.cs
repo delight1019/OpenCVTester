@@ -12,14 +12,15 @@ namespace OpenCVTester.Model
         private int _brightness;
         private double _contrast;
         private int _meanBlur;
-        private int _gaussianBlur;
+        private GaussianBlur _gaussianBlur;
 
         private void Initialize()
         {
             _brightness = 0;
             _contrast = 0;
             _meanBlur = 1;
-            _gaussianBlur = 1;
+            _gaussianBlur.kernalSize = 1;
+            _gaussianBlur.sigma = 1;
         }
         private Mat MakeCurrentImage()
         {
@@ -65,9 +66,13 @@ namespace OpenCVTester.Model
         {
             return _meanBlur;
         }
-        public int GetGaussianBlur()
+        public int GetGaussianBlurSize()
         {
-            return _gaussianBlur;
+            return _gaussianBlur.kernalSize;
+        }
+        public double GetGaussianBlurSigma()
+        {
+            return _gaussianBlur.sigma;
         }
         public Mat CalculateHistogram()
         {
@@ -89,9 +94,14 @@ namespace OpenCVTester.Model
             _meanBlur = value;
             return MakeCurrentImage();
         }
-        public Mat ChangeGaussianBlur(int value)
+        public Mat ChangeGaussianBlurSize(int value)
         {
-            _gaussianBlur = value;
+            _gaussianBlur.kernalSize = value;
+            return MakeCurrentImage();
+        }
+        public Mat ChangeGaussianBlurSigma(double value)
+        {
+            _gaussianBlur.sigma = value;
             return MakeCurrentImage();
         }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)

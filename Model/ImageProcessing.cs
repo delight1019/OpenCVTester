@@ -2,6 +2,12 @@
 
 namespace OpenCVTester.Model
 {
+    public struct GaussianBlur
+    {
+        public int kernalSize;
+        public double sigma;
+    }
+
     public class ImageProcessing
     {
         public Mat ControlBrightness(Mat imageSource, int value)
@@ -33,16 +39,16 @@ namespace OpenCVTester.Model
 
             return imageSource.Blur(size);
         }
-        public Mat ChangeGaussianBlur(Mat imageSource, int value)
+        public Mat ChangeGaussianBlur(Mat imageSource, GaussianBlur gaussianBlur)
         {
             if (imageSource == null)
             {
                 return null;
             }
 
-            Size size = new Size(value, value);
+            Size size = new Size(gaussianBlur.kernalSize, gaussianBlur.kernalSize);
 
-            return imageSource.GaussianBlur(size, 2.0);
+            return imageSource.GaussianBlur(size, gaussianBlur.sigma);
         }
         public Mat Crop(Mat imageSource, Rect rect)
         {

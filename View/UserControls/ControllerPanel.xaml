@@ -27,7 +27,7 @@
                 <RowDefinition Height="60" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
+                <RowDefinition Height="90" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Style="{StaticResource PropertyGridStyle}">
@@ -73,13 +73,17 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Label Style="{StaticResource PropertyTitleStyle}">Gaussian Blur</Label>
                     <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetGaussianBlurCommand}">Reset</Button>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Slider Minimum="1" Maximum="9" TickFrequency="2" IsSnapToTickEnabled="True" Value="{Binding GaussianBlur}" Style="{StaticResource SliderStyle}" />
+                    <Slider Minimum="1" Maximum="9" TickFrequency="2" IsSnapToTickEnabled="True" Value="{Binding GaussianBlurSize}" Style="{StaticResource SliderStyle}" />
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Slider Minimum="1" Maximum="5" Value="{Binding GaussianBlurSigma}" Style="{StaticResource SliderStyle}" />
                 </Grid>
             </Grid>
         </Grid>

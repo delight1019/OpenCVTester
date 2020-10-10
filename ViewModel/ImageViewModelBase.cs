@@ -45,7 +45,8 @@ namespace OpenCVTester.ViewModel
         }
         private void ResetGaussianBlur()
         {
-            GaussianBlur = 1;
+            GaussianBlurSize = 1;
+            GaussianBlurSigma = 1;
         }
 
         protected void AdjustSize(ref Mat image1, ref Mat image2)
@@ -122,13 +123,22 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("MeanBlur");
             }
         }
-        public int GaussianBlur
+        public int GaussianBlurSize
         {
-            get { return _imageModel.GetGaussianBlur(); }
+            get { return _imageModel.GetGaussianBlurSize(); }
             set
             {
-                ImageSource = _imageModel.ChangeGaussianBlur(value);
-                NotifyPropertyChanged("GaussianBlur");
+                ImageSource = _imageModel.ChangeGaussianBlurSize(value);
+                NotifyPropertyChanged("GaussianBlurSize");
+            }
+        }
+        public double GaussianBlurSigma
+        {
+            get { return _imageModel.GetGaussianBlurSigma(); }
+            set
+            {
+                ImageSource = _imageModel.ChangeGaussianBlurSigma(value);
+                NotifyPropertyChanged("GaussianBlurSigma");
             }
         }
 
