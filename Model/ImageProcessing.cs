@@ -22,6 +22,17 @@ namespace OpenCVTester.Model
 
             return (1 + value) * imageSource - 128 * value;
         }
+        public Mat ChangeMeanBlur(Mat imageSource, int value)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
+
+            Size size = new Size(value, value);
+
+            return imageSource.Blur(size);
+        }
         public Mat Crop(Mat imageSource, Rect rect)
         {
             return new Mat(imageSource, rect);

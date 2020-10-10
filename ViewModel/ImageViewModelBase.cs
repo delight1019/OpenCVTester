@@ -28,6 +28,7 @@ namespace OpenCVTester.ViewModel
 
         private ICommand _resetBrightnessCommand;
         private ICommand _resetContrastCommand;
+        private ICommand _resetMeanBlurCommand;
 
         private void ResetBrightness()
         {
@@ -36,6 +37,10 @@ namespace OpenCVTester.ViewModel
         private void ResetContrast()
         {
             Contrast = 0;
+        }
+        private void ResetMeanBlur()
+        {
+            MeanBlur = 1;
         }
 
         protected void AdjustSize(ref Mat image1, ref Mat image2)
@@ -103,6 +108,15 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("Contrast");
             }
         }
+        public int MeanBlur
+        {
+            get { return _imageModel.GetMeanBlur(); }
+            set
+            {
+                ImageSource = _imageModel.ChangeMeanBlur(value);
+                NotifyPropertyChanged("MeanBlur");
+            }
+        }
 
         public ICommand ResetBrightnessCommand
         {
@@ -111,6 +125,10 @@ namespace OpenCVTester.ViewModel
         public ICommand ResetContrastCommand
         {
             get { return (this._resetContrastCommand) ?? (this._resetContrastCommand = new DelegateCommand((param) => ResetContrast())); }
+        }
+        public ICommand ResetMeanBlurCommand
+        {
+            get { return (this._resetMeanBlurCommand) ?? (this._resetMeanBlurCommand = new DelegateCommand((param) => ResetMeanBlur())); }
         }
 
         public abstract bool IsVisible

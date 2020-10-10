@@ -11,12 +11,14 @@ namespace OpenCVTester.Model
         private Mat _histogram;
         private int _brightness;
         private double _contrast;
+        private int _meanBlur;
 
         private Mat MakeCurrentImage()
         {
             Mat tempImage = _originImage;
             tempImage = _imageProcessing.ControlBrightness(tempImage, _brightness);
             tempImage = _imageProcessing.ChangeContrast(tempImage, _contrast);
+            tempImage = _imageProcessing.ChangeMeanBlur(tempImage, _meanBlur);
             _currentImage = tempImage;
             return _currentImage;
         }
@@ -50,6 +52,10 @@ namespace OpenCVTester.Model
         {
             return _contrast;
         }
+        public int GetMeanBlur()
+        {
+            return _meanBlur;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -63,6 +69,11 @@ namespace OpenCVTester.Model
         public Mat ChangeContrast(double value)
         {
             _contrast = value;
+            return MakeCurrentImage();
+        }
+        public Mat ChangeMeanBlur(int value)
+        {
+            _meanBlur = value;
             return MakeCurrentImage();
         }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)
