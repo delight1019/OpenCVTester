@@ -33,6 +33,17 @@ namespace OpenCVTester.Model
 
             return imageSource.Blur(size);
         }
+        public Mat ChangeGaussianBlur(Mat imageSource, int value)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
+
+            Size size = new Size(value, value);
+
+            return imageSource.GaussianBlur(size, 2.0);
+        }
         public Mat Crop(Mat imageSource, Rect rect)
         {
             return new Mat(imageSource, rect);
