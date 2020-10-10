@@ -31,6 +31,7 @@ namespace OpenCVTester.ViewModel
         private ICommand _resetMeanBlurCommand;
         private ICommand _resetGaussianBlurCommand;
         private ICommand _resetSharpeningCommand;
+        private ICommand _resetMedianFilterCommand;
 
         private void ResetBrightness()
         {
@@ -52,6 +53,10 @@ namespace OpenCVTester.ViewModel
         private void ResetSharpening()
         {
             Sharpening = 0;
+        }
+        private void ResetMedianFilter()
+        {
+            MedianFilter = 1;
         }
 
         protected void AdjustSize(ref Mat image1, ref Mat image2)
@@ -155,6 +160,15 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("Sharpening");
             }
         }
+        public int MedianFilter
+        {
+            get { return _imageModel.GetMedianFilterSize(); }
+            set
+            {
+                ImageSource = _imageModel.ApplyMedianFilter(value);
+                NotifyPropertyChanged("MedianFilter");
+            }
+        }
 
         public ICommand ResetBrightnessCommand
         {
@@ -175,6 +189,10 @@ namespace OpenCVTester.ViewModel
         public ICommand ResetSharpeningCommand
         {
             get { return (this._resetSharpeningCommand) ?? (this._resetSharpeningCommand = new DelegateCommand((param) => ResetSharpening())); }
+        }
+        public ICommand ResetMedianFilterCommand
+        {
+            get { return (this._resetMedianFilterCommand) ?? (this._resetMedianFilterCommand = new DelegateCommand((param) => ResetMedianFilter())); }
         }
 
         public abstract bool IsVisible

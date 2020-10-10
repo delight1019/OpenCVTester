@@ -14,6 +14,7 @@ namespace OpenCVTester.Model
         private int _meanBlur;
         private GaussianBlur _gaussianBlur;
         private double _sharpening;
+        private int _medianFilterSize;
 
         private void Initialize()
         {
@@ -22,6 +23,7 @@ namespace OpenCVTester.Model
             _meanBlur = 1;
             _gaussianBlur = new GaussianBlur(1, 1.0);
             _sharpening = 0;
+            _medianFilterSize = 1;
         }
         private Mat MakeCurrentImage()
         {
@@ -32,6 +34,7 @@ namespace OpenCVTester.Model
             tempImage = _imageProcessing.ChangeMeanBlur(tempImage, _meanBlur);
             tempImage = _imageProcessing.ChangeGaussianBlur(tempImage, _gaussianBlur);
             tempImage = _imageProcessing.Sharpen(tempImage, _sharpening);
+            tempImage = _imageProcessing.ApplyMedianFilter(tempImage, _medianFilterSize);
 
             _currentImage = tempImage;
             return _currentImage;
@@ -82,6 +85,10 @@ namespace OpenCVTester.Model
         {
             return _sharpening;
         }
+        public int GetMedianFilterSize()
+        {
+            return _medianFilterSize;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -115,6 +122,11 @@ namespace OpenCVTester.Model
         public Mat Sharpen(double value)
         {
             _sharpening = value;
+            return MakeCurrentImage();
+        }
+        public Mat ApplyMedianFilter(int value)
+        {
+            _medianFilterSize = value;
             return MakeCurrentImage();
         }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)

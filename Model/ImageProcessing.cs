@@ -63,11 +63,20 @@ namespace OpenCVTester.Model
             if (imageSource == null)
             {
                 return null;
-            }            
+            }
 
             Mat unsharpMask = ChangeGaussianBlur(imageSource, unsharpMaskFactor);
 
             return (1 + weight) * imageSource - weight * unsharpMask;
+        }
+        public Mat ApplyMedianFilter(Mat imageSource, int size)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
+
+            return imageSource.MedianBlur(size);
         }
         public Mat Crop(Mat imageSource, Rect rect)
         {
