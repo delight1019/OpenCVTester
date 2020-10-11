@@ -18,7 +18,8 @@ namespace OpenCVTester.Model
         private BilateralFilter _bilateralFilter;
         private bool _isSketchFilterOn;
         private bool _isCartoonFilterOn;
-        private translationFactor _translationFactor;
+        private TranslationFactor _translationFactor;
+        private ShearFactor _shearFactor;
 
         private void Initialize()
         {
@@ -54,6 +55,7 @@ namespace OpenCVTester.Model
             }
 
             tempImage = _imageProcessing.Translate(tempImage, _translationFactor);
+            tempImage = _imageProcessing.Shear(tempImage, _shearFactor);
 
             _currentImage = tempImage;
             return _currentImage;
@@ -132,6 +134,14 @@ namespace OpenCVTester.Model
         {
             return _translationFactor.y;
         }
+        public float GetShearX()
+        {
+            return _shearFactor.x;
+        }
+        public float GetShearY()
+        {
+            return _shearFactor.y;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -200,6 +210,16 @@ namespace OpenCVTester.Model
         public Mat TranslateY(int y)
         {
             _translationFactor.y = y;
+            return MakeCurrentImage();
+        }
+        public Mat ShearX(float x)
+        {
+            _shearFactor.x = x;
+            return MakeCurrentImage();
+        }
+        public Mat ShearY(float y)
+        {
+            _shearFactor.y = y;
             return MakeCurrentImage();
         }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)

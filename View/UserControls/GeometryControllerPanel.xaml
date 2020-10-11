@@ -21,6 +21,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
+            <RowDefinition Height="90" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Style="{StaticResource PropertyGridStyle}">
@@ -38,6 +39,23 @@
             </Grid>
             <Grid Grid.Row="2">
                 <Slider Minimum="{Binding ImageSource, Converter={StaticResource ImageHeightConverter}, ConverterParameter=-1}" Maximum="{Binding ImageSource, Converter={StaticResource ImageHeightConverter}, ConverterParameter=1}" Value="{Binding TranslationY}" Style="{StaticResource SliderStyle}" />
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Style="{StaticResource PropertyGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Label Style="{StaticResource PropertyTitleStyle}">Shear</Label>
+                <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetShearCommand}">Reset</Button>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Slider Minimum="-1" Maximum="1"  Value="{Binding ShearX}" Style="{StaticResource SliderStyle}" />
+            </Grid>
+            <Grid Grid.Row="2">
+                <Slider Minimum="-1" Maximum="1" Value="{Binding ShearY}" Style="{StaticResource SliderStyle}" />
             </Grid>
         </Grid>
     </Grid>

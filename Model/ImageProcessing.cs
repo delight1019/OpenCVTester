@@ -28,12 +28,24 @@ namespace OpenCVTester.Model
         }
     }
 
-    public struct translationFactor
+    public struct TranslationFactor
     {
         public int x;
         public int y;
 
-        public translationFactor(int x, int y)
+        public TranslationFactor(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public struct ShearFactor
+    {
+        public float x;
+        public float y;
+
+        public ShearFactor(float x, float y)
         {
             this.x = x;
             this.y = y;
@@ -139,7 +151,7 @@ namespace OpenCVTester.Model
 
             return imageSource;
         }
-        public Mat Translate(Mat imageSource, translationFactor translationFactor)
+        public Mat Translate(Mat imageSource, TranslationFactor translationFactor)
         {
             if (imageSource == null)
             {
@@ -159,6 +171,33 @@ namespace OpenCVTester.Model
                 new Point2f(translationFactor.x, imageSource.Height + translationFactor.y),
                 new Point2f(imageSource.Width + translationFactor.x, imageSource.Height + translationFactor.y)
             };            
+
+            Mat affineMatrix = Cv2.GetAffineTransform(src, dst);
+            Mat translatedMatrix = new Mat();
+
+            Cv2.WarpAffine(imageSource, translatedMatrix, affineMatrix, new Size(imageSource.Width, imageSource.Height));
+            return translatedMatrix;
+        }
+        public Mat Shear(Mat imageSource, ShearFactor shearFactor)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
+
+            List<Point2f> src = new List<Point2f>()
+            {
+                new Point2f(0.0f, 0.0f),
+                new Point2f(0.0f, imageSource.Height),
+                new Point2f(imageSource.Width, imageSource.Height)
+            };
+
+            List<Point2f> dst = new List<Point2f>()
+            {
+                new Point2f(0.0f, 0.0f),
+                new Point2f(shearFactor.y * imageSource.Height, imageSource.Height),
+                new Point2f(imageSource.Width + shearFactor.y * imageSource.Height, shearFactor.x * imageSource.Width + imageSource.Height)
+            };
 
             Mat affineMatrix = Cv2.GetAffineTransform(src, dst);
             Mat translatedMatrix = new Mat();
