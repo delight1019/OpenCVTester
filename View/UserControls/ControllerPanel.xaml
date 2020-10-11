@@ -23,115 +23,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Style="{StaticResource ControllerPanelStyle}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="90" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="90" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Style="{StaticResource PropertyGridStyle}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Style="{StaticResource PropertyTitleStyle}">Brightness</Label>
-                    <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetBrightnessCommand}">Reset</Button>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Slider Minimum="-255" Maximum="255" Value="{Binding Brightness}" Style="{StaticResource SliderStyle}" />
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="1" Style="{StaticResource PropertyGridStyle}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Style="{StaticResource PropertyTitleStyle}">Contrast</Label>
-                    <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetContrastCommand}">Reset</Button>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Slider Minimum="-1" Maximum="1" Value="{Binding Contrast}" Style="{StaticResource SliderStyle}" />
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="2" Style="{StaticResource PropertyGridStyle}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Style="{StaticResource PropertyTitleStyle}">Mean Blur</Label>
-                    <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetMeanBlurCommand}">Reset</Button>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Slider Minimum="1" Maximum="9" TickFrequency="2" IsSnapToTickEnabled="True" Value="{Binding MeanBlur}" Style="{StaticResource SliderStyle}" />
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="3" Style="{StaticResource PropertyGridStyle}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Style="{StaticResource PropertyTitleStyle}">Gaussian Blur</Label>
-                    <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetGaussianBlurCommand}">Reset</Button>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Slider Minimum="1" Maximum="9" TickFrequency="2" IsSnapToTickEnabled="True" Value="{Binding GaussianBlurSize}" Style="{StaticResource SliderStyle}" />
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Slider Minimum="1" Maximum="5" Value="{Binding GaussianBlurSigma}" Style="{StaticResource SliderStyle}" />
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="4" Style="{StaticResource PropertyGridStyle}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Style="{StaticResource PropertyTitleStyle}">Sharpening</Label>
-                    <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetSharpeningCommand}">Reset</Button>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Slider Minimum="0" Maximum="3" Value="{Binding Sharpening}" Style="{StaticResource SliderStyle}" />
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="5" Style="{StaticResource PropertyGridStyle}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Style="{StaticResource PropertyTitleStyle}">Median Filter</Label>
-                    <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetMedianFilterCommand}">Reset</Button>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Slider Minimum="1" Maximum="9" TickFrequency="2" IsSnapToTickEnabled="True" Value="{Binding MedianFilter}" Style="{StaticResource SliderStyle}" />
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="6" Style="{StaticResource PropertyGridStyle}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Style="{StaticResource PropertyTitleStyle}">Bilateral Filter</Label>
-                    <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetBilateralFilterCommand}">Reset</Button>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Slider Minimum="1" Maximum="20" Value="{Binding BilateralFilterSigmaColor}" Style="{StaticResource SliderStyle}" />
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Slider Minimum="1" Maximum="20" Value="{Binding BilateralFilterSigmaSpace}" Style="{StaticResource SliderStyle}" />
-                </Grid>
-            </Grid>
+            <TabControl Style="{StaticResource ControllerPanelTabStyle}">
+                <TabItem Header="Filter">
+                    <local:FilterControllerPanel></local:FilterControllerPanel>
+                </TabItem>
+                <TabItem Header="Geometry">
+                    <local:GeometryControllerPanel></local:GeometryControllerPanel>
+                </TabItem>
+            </TabControl>
         </Grid>
         <Grid Grid.Row="1" Style="{StaticResource InformationGridStyle}">
             <Grid.RowDefinitions>

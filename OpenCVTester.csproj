@@ -93,6 +93,12 @@
     <Compile Include="View\UserControls\ControllerPanel.xaml.cs">
       <DependentUpon>ControllerPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\FilterControllerPanel.xaml.cs">
+      <DependentUpon>FilterControllerPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\GeometryControllerPanel.xaml.cs">
+      <DependentUpon>GeometryControllerPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\ImagePanel.xaml.cs">
       <DependentUpon>ImagePanel.xaml</DependentUpon>
     </Compile>
@@ -160,6 +166,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\ControllerPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\FilterControllerPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\GeometryControllerPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
