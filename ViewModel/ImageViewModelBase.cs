@@ -33,6 +33,7 @@ namespace OpenCVTester.ViewModel
         private ICommand _resetSharpeningCommand;
         private ICommand _resetMedianFilterCommand;
         private ICommand _resetBilateralFilterCommand;
+        private ICommand _resetTranslationCommand;
 
         private void ResetBrightness()
         {
@@ -63,6 +64,11 @@ namespace OpenCVTester.ViewModel
         {
             BilateralFilterSigmaColor = 1;
             BilateralFilterSigmaSpace = 1;
+        }
+        private void ResetTranslation()
+        {
+            TranslationX = 0;
+            TranslationY = 0;
         }
 
         protected void AdjustSize(ref Mat image1, ref Mat image2)
@@ -257,6 +263,10 @@ namespace OpenCVTester.ViewModel
         public ICommand ResetBilateralFilterCommand
         {
             get { return (this._resetBilateralFilterCommand) ?? (this._resetBilateralFilterCommand = new DelegateCommand((param) => ResetBilateralFilter())); }
+        }
+        public ICommand ResetTranslationCommand
+        {
+            get { return (this._resetTranslationCommand) ?? (this._resetTranslationCommand = new DelegateCommand((param) => ResetTranslation())); }
         }
 
         public abstract bool IsVisible
