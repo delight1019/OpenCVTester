@@ -8,7 +8,6 @@ namespace OpenCVTester.Model
         private ImageProcessing _imageProcessing;
         private Mat _originImage;
         private Mat _currentImage;
-        private Mat _beforeSketchFilterImage;
         private Mat _histogram;
         private int _brightness;
         private double _contrast;
@@ -19,6 +18,7 @@ namespace OpenCVTester.Model
         private BilateralFilter _bilateralFilter;
         private bool _isSketchFilterOn;
         private bool _isCartoonFilterOn;
+        private translationFactor _translationFactor;
 
         private void Initialize()
         {
@@ -52,6 +52,8 @@ namespace OpenCVTester.Model
             {
                 tempImage = _imageProcessing.ApplyCartoonFilter(tempImage);
             }
+
+            tempImage = _imageProcessing.Translate(tempImage, _translationFactor);
 
             _currentImage = tempImage;
             return _currentImage;
@@ -122,6 +124,14 @@ namespace OpenCVTester.Model
         {
             return _isCartoonFilterOn;
         }
+        public int GetTranslationX()
+        {
+            return _translationFactor.x;
+        }
+        public int GetTranslationY()
+        {
+            return _translationFactor.y;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -180,6 +190,16 @@ namespace OpenCVTester.Model
         public Mat ApplyCartoonFilter(bool isOn)
         {
             _isCartoonFilterOn = isOn;
+            return MakeCurrentImage();
+        }
+        public Mat TranslateX(int x)
+        {
+            _translationFactor.x = x;
+            return MakeCurrentImage();
+        }
+        public Mat TranslateY(int y)
+        {
+            _translationFactor.y = y;
             return MakeCurrentImage();
         }
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)

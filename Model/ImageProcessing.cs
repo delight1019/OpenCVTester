@@ -1,4 +1,6 @@
 ﻿using OpenCvSharp;
+using System;
+using System.Collections.Generic;
 
 namespace OpenCVTester.Model
 {
@@ -23,6 +25,18 @@ namespace OpenCVTester.Model
         {
             this.sigmaColor = color;
             this.sigmaSpace = space;
+        }
+    }
+
+    public struct translationFactor
+    {
+        public int x;
+        public int y;
+
+        public translationFactor(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
         }
     }
 
@@ -124,6 +138,33 @@ namespace OpenCVTester.Model
             Cv2.BitwiseAnd(bilateralImage, cannyImage, imageSource);
 
             return imageSource;
+        }
+        public Mat Translate(Mat imageSource, translationFactor translationFactor)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
+
+            List<Point2f> src = new List<Point2f>()
+            {
+                new Point2f(0.0f, 0.0f),
+                new Point2f(0.0f, imageSource.Height),
+                new Point2f(imageSource.Width, imageSource.Height)
+            };
+
+            List<Point2f> dst = new List<Point2f>()
+            {
+                new Point2f(translationFactor.x, translationFactor.y),
+                new Point2f(translationFactor.x, imageSource.Height + translationFactor.y),
+                new Point2f(imageSource.Width + translationFactor.x, imageSource.Height + translationFactor.y)
+            };            
+
+            Mat affineMatrix = Cv2.GetAffineTransform(src, dst);
+            Mat translatedMatrix = new Mat();
+
+            Cv2.WarpAffine(imageSource, translatedMatrix, affineMatrix, new Size(imageSource.Width, imageSource.Height));
+            return translatedMatrix;
         }
         public Mat Crop(Mat imageSource, Rect rect)
         {

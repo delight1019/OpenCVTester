@@ -3,10 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:OpenCVTester.Converter"
              xmlns:local="clr-namespace:OpenCVTester.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converter:ImageWidthConverter x:Key="ImageWidthConverter" />
+            <converter:ImageHeightConverter x:Key="ImageHeightConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/DefaultStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Style="{StaticResource PropertyGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Label Style="{StaticResource PropertyTitleStyle}">Translation</Label>
+                <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetTranslationCommand}">Reset</Button>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Slider Minimum="{Binding ImageSource, Converter={StaticResource ImageWidthConverter}, ConverterParameter=-1}" Maximum="{Binding ImageSource, Converter={StaticResource ImageWidthConverter}, ConverterParameter=1}"  Value="{Binding TranslationX}" Style="{StaticResource SliderStyle}" />
+            </Grid>
+            <Grid Grid.Row="2">
+                <Slider Minimum="{Binding ImageSource, Converter={StaticResource ImageHeightConverter}, ConverterParameter=-1}" Maximum="{Binding ImageSource, Converter={StaticResource ImageHeightConverter}, ConverterParameter=1}" Value="{Binding TranslationY}" Style="{StaticResource SliderStyle}" />
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

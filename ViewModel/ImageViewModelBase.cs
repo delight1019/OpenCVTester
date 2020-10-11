@@ -211,6 +211,24 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("IsCartoonFilterOn");
             }
         }
+        public int TranslationX
+        {
+            get { return _imageModel.GetTranslationX(); }
+            set
+            {
+                ImageSource = _imageModel.TranslateX(value);
+                NotifyPropertyChanged("TranslationX");
+            }
+        }
+        public int TranslationY
+        {
+            get { return _imageModel.GetTranslationY(); }
+            set
+            {
+                ImageSource = _imageModel.TranslateY(value);
+                NotifyPropertyChanged("TranslationY");
+            }
+        }
 
         public ICommand ResetBrightnessCommand
         {
