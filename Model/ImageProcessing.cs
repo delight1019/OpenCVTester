@@ -77,6 +77,11 @@ namespace OpenCVTester.Model
                 return null;
             }
 
+            if (value == 0)
+            {
+                return imageSource;
+            }
+
             return imageSource + value;
         }
         public Mat ChangeContrast(Mat imageSource, double value)
@@ -86,6 +91,11 @@ namespace OpenCVTester.Model
                 return null;
             }
 
+            if (value == 0)
+            {
+                return imageSource;
+            }
+
             return (1 + value) * imageSource - 128 * value;
         }
         public Mat ChangeMeanBlur(Mat imageSource, int value)
@@ -93,6 +103,11 @@ namespace OpenCVTester.Model
             if (imageSource == null)
             {
                 return null;
+            }
+
+            if (value == 1)
+            {
+                return imageSource;
             }
 
             Size size = new Size(value, value);
@@ -106,6 +121,11 @@ namespace OpenCVTester.Model
                 return null;
             }
 
+            if ((gaussianBlur.kernalSize == 1) && (gaussianBlur.sigma == 1.0))
+            {
+                return imageSource;
+            }
+
             Size size = new Size(gaussianBlur.kernalSize, gaussianBlur.kernalSize);
 
             return imageSource.GaussianBlur(size, gaussianBlur.sigma);
@@ -115,6 +135,11 @@ namespace OpenCVTester.Model
             if (imageSource == null)
             {
                 return null;
+            }
+
+            if (weight == 0)
+            {
+                return imageSource;
             }
 
             Mat unsharpMask = ChangeGaussianBlur(imageSource, unsharpMaskFactor);
@@ -128,6 +153,11 @@ namespace OpenCVTester.Model
                 return null;
             }
 
+            if (size == 1)
+            {
+                return imageSource;
+            }
+
             return imageSource.MedianBlur(size);
         }
         public Mat ApplyBilateralFilter(Mat imageSource, BilateralFilter bilateralFilter)
@@ -135,6 +165,11 @@ namespace OpenCVTester.Model
             if (imageSource == null)
             {
                 return null;
+            }
+
+            if ((bilateralFilter.sigmaColor == 1) && (bilateralFilter.sigmaSpace == 1))
+            {
+                return imageSource;
             }
 
             return imageSource.BilateralFilter(-1, bilateralFilter.sigmaColor, bilateralFilter.sigmaSpace);
@@ -170,6 +205,11 @@ namespace OpenCVTester.Model
                 return null;
             }
 
+            if ((translationFactor.x == 0) && (translationFactor.y == 0))
+            {
+                return imageSource;
+            }
+
             List<Point2f> src = new List<Point2f>()
             {
                 new Point2f(0.0f, 0.0f),
@@ -197,6 +237,11 @@ namespace OpenCVTester.Model
                 return null;
             }
 
+            if ((shearFactor.x == 0) && (shearFactor.y == 0))
+            {
+                return imageSource;
+            }
+
             List<Point2f> src = new List<Point2f>()
             {
                 new Point2f(0.0f, 0.0f),
@@ -222,6 +267,11 @@ namespace OpenCVTester.Model
             if (imageSource == null)
             {
                 return null;
+            }
+
+            if ((resizeFactor.scaleX == 1) && (resizeFactor.scaleY == 1))
+            {
+                return imageSource;
             }
 
             Mat resizedImage = new Mat();
