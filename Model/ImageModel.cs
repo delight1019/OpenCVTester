@@ -20,6 +20,7 @@ namespace OpenCVTester.Model
         private bool _isCartoonFilterOn;
         private TranslationFactor _translationFactor;
         private ShearFactor _shearFactor;
+        private ResizeFactor _resizeFactor;
 
         private void Initialize()
         {
@@ -31,6 +32,10 @@ namespace OpenCVTester.Model
             _medianFilterSize = 1;
             _bilateralFilter = new BilateralFilter(1, 1);
             _isSketchFilterOn = false;
+            _isCartoonFilterOn = false;
+            _translationFactor = new TranslationFactor(0, 0);
+            _shearFactor = new ShearFactor(0, 0);
+            _resizeFactor = new ResizeFactor(1, 1);
         }
         private Mat MakeCurrentImage()
         {
@@ -56,6 +61,7 @@ namespace OpenCVTester.Model
 
             tempImage = _imageProcessing.Translate(tempImage, _translationFactor);
             tempImage = _imageProcessing.Shear(tempImage, _shearFactor);
+            tempImage = _imageProcessing.Resize(tempImage, _resizeFactor);
 
             _currentImage = tempImage;
             return _currentImage;
@@ -142,6 +148,14 @@ namespace OpenCVTester.Model
         {
             return _shearFactor.y;
         }
+        public float GetResizeScale()
+        {
+            if (_resizeFactor.scaleX != _resizeFactor.scaleY)
+            {
+                _resizeFactor.scaleX = _resizeFactor.scaleY;
+            }
+            return _resizeFactor.scaleX;
+        }
         public Mat CalculateHistogram()
         {
             _histogram = _imageProcessing.CalculateHistogram(_currentImage);
@@ -222,6 +236,12 @@ namespace OpenCVTester.Model
             _shearFactor.y = y;
             return MakeCurrentImage();
         }
+        public Mat Resize(float scale)
+        {
+            _resizeFactor.scaleX = scale;
+            _resizeFactor.scaleY = scale;
+            return MakeCurrentImage();
+        }        
         public Mat AddWeightedImages(Mat image1, Mat image2, double alpha, double beta)
         {
             Cv2.AddWeighted(image1, alpha, image2, beta, 0, _originImage);

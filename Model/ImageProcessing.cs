@@ -52,6 +52,18 @@ namespace OpenCVTester.Model
         }
     }
 
+    public struct ResizeFactor
+    {
+        public float scaleX;
+        public float scaleY;
+
+        public ResizeFactor(float x, float y)
+        {
+            scaleX = x;
+            scaleY = y;
+        }
+    }
+
     public class ImageProcessing
     {
         private GaussianBlur unsharpMaskFactor = new GaussianBlur(0, 2.0);
@@ -204,6 +216,18 @@ namespace OpenCVTester.Model
 
             Cv2.WarpAffine(imageSource, translatedMatrix, affineMatrix, new Size(imageSource.Width, imageSource.Height));
             return translatedMatrix;
+        }
+        public Mat Resize(Mat imageSource, ResizeFactor resizeFactor)
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
+
+            Mat resizedImage = new Mat();
+
+            Cv2.Resize(imageSource, resizedImage, new Size(0, 0), resizeFactor.scaleX, resizeFactor.scaleY);
+            return resizedImage;
         }
         public Mat Crop(Mat imageSource, Rect rect)
         {

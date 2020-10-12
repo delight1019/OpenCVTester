@@ -22,6 +22,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
             <RowDefinition Height="90" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Style="{StaticResource PropertyGridStyle}">
@@ -56,6 +57,19 @@
             </Grid>
             <Grid Grid.Row="2">
                 <Slider Minimum="-1" Maximum="1" Value="{Binding ShearY}" Style="{StaticResource SliderStyle}" />
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Style="{StaticResource PropertyGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Label Style="{StaticResource PropertyTitleStyle}">Resize</Label>
+                <Button Style="{StaticResource PropertyResetButtonStyle}" Command="{Binding ResetResizeScaleCommand}">Reset</Button>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Slider Minimum="0.5" Maximum="2.0"  Value="{Binding ResizeScale}" Style="{StaticResource SliderStyle}" />
             </Grid>
         </Grid>
     </Grid>

@@ -35,6 +35,7 @@ namespace OpenCVTester.ViewModel
         private ICommand _resetBilateralFilterCommand;
         private ICommand _resetTranslationCommand;
         private ICommand _resetShearCommand;
+        private ICommand _resetResizeScaleCommand;
 
         private void ResetBrightness()
         {
@@ -75,6 +76,10 @@ namespace OpenCVTester.ViewModel
         {
             ShearX = 0;
             ShearY = 0;
+        }
+        private void ResetResizeScale()
+        {
+            ResizeScale = 1;
         }
 
         protected void AdjustSize(ref Mat image1, ref Mat image2)
@@ -259,6 +264,15 @@ namespace OpenCVTester.ViewModel
                 NotifyPropertyChanged("ShearY");
             }
         }
+        public float ResizeScale
+        {
+            get { return _imageModel.GetResizeScale(); }
+            set
+            {
+                ImageSource = _imageModel.Resize(value);
+                NotifyPropertyChanged("ResizeScale");
+            }
+        }
 
         public ICommand ResetBrightnessCommand
         {
@@ -295,6 +309,10 @@ namespace OpenCVTester.ViewModel
         public ICommand ResetShearCommand
         {
             get { return (this._resetShearCommand) ?? (this._resetShearCommand = new DelegateCommand((param) => ResetShear())); }
+        }
+        public ICommand ResetResizeScaleCommand
+        {
+            get { return (this._resetResizeScaleCommand) ?? (this._resetResizeScaleCommand = new DelegateCommand((param) => ResetResizeScale())); }
         }
 
         public abstract bool IsVisible
